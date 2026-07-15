@@ -1,66 +1,88 @@
-# Meter Serial Number Detection
+# Meter Serial-Number OCR
 
-Extract the alphanumeric serial number printed on electricity-meter nameplates
-from cropped photos, using a **fine-tuned PaddleOCR PP-OCRv5 recognizer**.
+Extract the alphanumeric **serial number** printed on electricity-meter nameplates
+from cropped photos — using a **fine-tuned PaddleOCR PP-OCRv5 recognizer**, with
+INT8-quantized models for lightweight deployment.
 
-## Current state (measured on 4,148 hand-labeled images)
-- **Model:** PP-OCRv5 server recognizer, **fine-tuned on our labels**, recognition-only
-  (no detector — the crops are already the serial ROI). Runs on GPU.
-  Lives in `finetune/inference/`; `extract_serials.py` uses it automatically.
-- **Accuracy:** **95.1% exact-match on unseen images** (held-out test earlier: 85.2% → 87.8% after fine-tuning).
-- **Confidence gate @0.95:** auto-accept ~76% of images at **95%+ precision**; the rest go to a review queue.
-- TrOCR/EasyOCR were evaluated and **dropped** — the fine-tuned recognizer beats them
-  (in disagreements, it is right 93% vs TrOCR 1%).
+---
 
-## Folder structure
+## Demo — before → after
+
+**Input** (a cropped meter-nameplate serial region):
+
+![input crop](assets/sample_meter_crop.jpg)
+
+**Output** (the model reads the serial):
+
+![extracted result](assets/result_after.png)
+
+```
+input : a 232×50 crop of a meter nameplate
+output: TPCODL TS0319159   (confidence 0.98, status: accepted)
+```
+
+---
+
+## What this is
+
+- **Task:** read the serial number from an already-cropped meter-nameplate image
+  (recognition-only — the crop is the serial ROI, so no text detector is needed).
+- **Model:** PP-OCRv5 server recognizer, **fine-tuned on 6,709 hand-labeled meter serials**.
+- **Confidence gate:** high-confidence reads are auto-accepted; the rest route to
+  a human review queue.
+
+## Models (`MODELS/README.md` for the full index)
+
+| Model | Size | Precision | Accuracy* | Runtime | Deployment package |
+|---|---|---|---|---|---|
+| **FP32 (original)** | 81 MB | 32-bit | **94.7%** | Paddle | — |
+| **QAT INT8** ⭐ | 22 MB | 8-bit (QAT) | **92.8%** | Paddle | `deploy_meterocr_qat_int8/` |
+| **PTQ INT8** | 21 MB | 8-bit (PTQ) | 85.3% | ONNX | `deploy_meterocr_ptq_int8/` |
+
+*Exact-match on readable images of an unseen out-of-distribution utility (TCPODL/TPSODL).
+On in-domain data all run ~95%+. See `PROJECT_SUMMARY.md` for the full comparison.
+
+## Quick start — run the OCR (deployment package)
+
+**ONNX (portable, no Paddle):**
+```bash
+cd deploy_meterocr_ptq_int8
+pip install -r requirements.txt
+python3 -c "from meterocr import MeterOCR; print(MeterOCR().predict('sample.jpg'))"
+# -> ('TPCODL TS0319159', 0.98, 'accepted')
+```
+
+**Paddle (higher accuracy):** same API in `deploy_meterocr_qat_int8/` (needs `paddlepaddle`).
+
+Each package bundles the model + dictionary + `meterocr.py` (preprocess + CTC decode +
+confidence gate) + a `benchmark.py` to measure CPU/GPU latency. See each folder's README.
+
+## Repository layout
+
 ```
 .
-├── README.md
-├── scripts/
-│   ├── extract_serials.py       # MAIN: fine-tuned recognizer + confidence gate -> serials CSV
-│   ├── build_review_page.py     # CSV -> review/feedback HTML (zoom, copy-path, live labeling)
-│   ├── score_accuracy.py        # score predictions vs results/ground_truth.csv
-│   ├── make_labeling_page.py    # stratified sample -> labeling page
-│   ├── prepare_finetune_data.py # ground_truth.csv -> PaddleX rec dataset (session-split)
-│   └── compare_all_models.py    # (optional) 4-model comparison utility
-├── data/
-│   ├── serialno_dev/            # 501 dev crops
-│   └── serial_roi_test/         # 4,184 test crops (deduplicated)
-├── finetune/
-│   ├── inference/               # the fine-tuned recognizer (deployed model)
-│   ├── dataset/                 # PaddleX rec dataset (train/val/test, session-split)
-│   └── rec_finetune.yml         # training config
-├── results/
-│   ├── ground_truth.csv         # 4,148 hand labels (3,387 readable) — eval + retrain
-│   ├── test_serials.csv         # MAIN OUTPUT (fine-tuned reads + status)
-│   ├── test_review.html         # review/feedback viewer
-│   └── feedback_test_finetuned.csv  # raw review record
-└── report/                      # LaTeX methodology report
+├── README.md · PROJECT_SUMMARY.md · MODELS/README.md   # docs
+├── deploy_meterocr_ptq_int8/    # ready-to-ship ONNX package (21 MB)
+├── deploy_meterocr_qat_int8/    # ready-to-ship Paddle package (22 MB)
+├── scripts/                     # extraction, review pages, scoring, data prep
+├── size_reduction/             # quantization pipeline (PTQ + QAT) + comparison tooling
+│   └── compat_env/             # Paddle 3.0.0 recipe (exports the ONNX-convertible format)
+├── finetune/                   # training config + log
+├── results/                    # ground-truth + comparison CSVs
+└── report/                     # LaTeX methodology report
 ```
+> Datasets, the training venv, and 200 MB+ checkpoints are **not** in the repo
+> (`.gitignore`) — they're re-derivable; see `PROJECT_SUMMARY.md`.
 
-## Output columns (`test_serials.csv`)
-`image, meter_id, display_text, serial_only, score, final_serial, status`
-- **`final_serial`** — the answer (a serial, or `NEEDS_REVIEW`, or blank)
-- **`status`** — `accepted` (score ≥ 0.95, ~95% correct) · `review` · `blank`
+## Methodology & full story
+- **`PROJECT_SUMMARY.md`** — datasets, fine-tuning (85.2% → 87.8%), retrain, the full
+  quantization journey (PTQ vs QAT), measured accuracy, latency, and the progress log.
+- **`MODELS/README.md`** — the model index + naming scheme.
+- **Quantization pipeline** — `size_reduction/compat_env/` (reproducible).
 
-## Run the pipeline
+## Pipeline scripts (for the full dataset, not the deploy package)
 ```bash
-cd "/home/ganesh/Desktop/Prince number detection in meter"
-python3 scripts/extract_serials.py --data data/serial_roi_test --out results/test_serials.csv --threshold 0.95
-python3 scripts/build_review_page.py --csv results/test_serials.csv --data data/serial_roi_test --out results/test_review.html
+python3 scripts/extract_serials.py  --data <crops_dir> --out results/out.csv --threshold 0.95
+python3 scripts/build_review_page.py --csv results/out.csv --data <crops_dir> --out results/review.html
+python3 scripts/score_accuracy.py    --preds results/out.csv
 ```
-- Uses the fine-tuned model automatically (`--base-model` forces the stock one).
-- Open `results/test_review.html` to review; it doubles as a labeling tool
-  (✓ correct / fix / ✗ unreadable, "Download feedback.csv").
-
-## Accuracy check
-```bash
-python3 scripts/score_accuracy.py --preds results/test_serials.csv
-```
-
-## Retraining (optional, to go past 95%)
-`results/ground_truth.csv` now has 3,387 readable labels. To retrain:
-1. `python3 scripts/prepare_finetune_data.py`  (rebuilds `finetune/dataset/`)
-2. Train via the PaddleOCR repo: `PYTHONPATH=<repo> python3 <repo>/tools/train.py -c finetune/rec_finetune.yml` (use LR ~2e-5; see project notes).
-3. Export to `finetune/inference/` and re-run the pipeline.
-Free disk space first — the drive runs near full.
