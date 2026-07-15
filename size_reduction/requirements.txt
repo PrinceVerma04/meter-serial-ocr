@@ -1,0 +1,6 @@
+# Size-reduction tooling. Install with:
+#   pip install -r size_reduction/requirements.txt
+paddle2onnx
+onnx
+onnxruntime
+paddleslim
