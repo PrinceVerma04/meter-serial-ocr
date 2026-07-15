@@ -1,0 +1,56 @@
+# ============================================================
+#  .gitignore — keep the repo lean (code + docs + deploy pkgs).
+#  Excludes multi-GB venvs, datasets, and >100MB checkpoints
+#  that GitHub can't/shouldn't host.
+# ============================================================
+
+# --- virtual environments (the compat_env venv is ~9.5 GB) ---
+**/venv/
+size_reduction/compat_env/venv/
+
+# --- datasets (thousands of images) ---
+data/
+dataset for test/
+new dataset for test/
+ROI/
+
+# --- training outputs & checkpoints (200 MB+ files, > GitHub limit) ---
+size_reduction/compat_env/output/
+size_reduction/prune_qat/qat_output/
+size_reduction/prune_qat/prune_output/
+size_reduction/prune_qat/prune_inference/
+size_reduction/legacy_server/
+finetune/output/
+finetune/pretrained/
+
+# --- source model binaries (large; the DEPLOYABLE models live in
+#     deploy_meterocr_*/ and ARE committed) ---
+finetune/inference/
+finetune/inference_v2/
+finetune/inference_backup_2026-07-13/
+finetune/inference_v2_backup_2026-07-13/
+finetune/dataset/
+size_reduction/models/
+size_reduction/prune_qat/qat_inference/
+
+# --- regenerable outputs / junk ---
+results/*.html
+*.bak
+sym_shape_infer_temp.onnx
+*.onnx.data
+
+# --- python / os cruft ---
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.ipynb_checkpoints/
+
+# NOTE: the deploy_meterocr_ptq_int8/ and deploy_meterocr_qat_int8/
+# folders (with their ~21-22 MB model files) ARE committed on purpose —
+# they are the ready-to-ship deliverables.
+
+# --- redundant / local ---
+*.zip
+.claude/
+MODELS/meterocr_*
