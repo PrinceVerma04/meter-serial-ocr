@@ -36,8 +36,8 @@ output: TPCODL TS0319159   (confidence 0.98, status: accepted)
 | Model | Size | Precision | Accuracy* | Runtime | Deployment package |
 |---|---|---|---|---|---|
 | **FP32 (original)** | 81 MB | 32-bit | **94.7%** | Paddle | — |
-| **QAT INT8** ⭐ | 22 MB | 8-bit (QAT) | **92.8%** | Paddle | `deploy_meterocr_qat_int8/` |
-| **PTQ INT8** | 21 MB | 8-bit (PTQ) | 85.3% | ONNX | `deploy_meterocr_ptq_int8/` |
+| **QAT INT8** ⭐ | 22 MB | 8-bit (QAT) | **92.8%** | Paddle | `deploy/qat_int8/` |
+| **PTQ INT8** | 21 MB | 8-bit (PTQ) | 85.3% | ONNX | `deploy/ptq_int8/` |
 
 *Exact-match on readable images of an unseen out-of-distribution utility (TCPODL/TPSODL).
 On in-domain data all run ~95%+. See `PROJECT_SUMMARY.md` for the full comparison.
@@ -46,13 +46,13 @@ On in-domain data all run ~95%+. See `PROJECT_SUMMARY.md` for the full compariso
 
 **ONNX (portable, no Paddle):**
 ```bash
-cd deploy_meterocr_ptq_int8
+cd deploy/ptq_int8
 pip install -r requirements.txt
 python3 -c "from meterocr import MeterOCR; print(MeterOCR().predict('sample.jpg'))"
 # -> ('TPCODL TS0319159', 0.98, 'accepted')
 ```
 
-**Paddle (higher accuracy):** same API in `deploy_meterocr_qat_int8/` (needs `paddlepaddle`).
+**Paddle (higher accuracy):** same API in `deploy/qat_int8/` (needs `paddlepaddle`).
 
 Each package bundles the model + dictionary + `meterocr.py` (preprocess + CTC decode +
 confidence gate) + a `benchmark.py` to measure CPU/GPU latency. See each folder's README.
@@ -62,14 +62,18 @@ confidence gate) + a `benchmark.py` to measure CPU/GPU latency. See each folder'
 ```
 .
 ├── README.md · PROJECT_SUMMARY.md · MODELS/README.md   # docs
-├── deploy_meterocr_ptq_int8/    # ready-to-ship ONNX package (21 MB)
-├── deploy_meterocr_qat_int8/    # ready-to-ship Paddle package (22 MB)
-├── scripts/                     # extraction, review pages, scoring, data prep
+├── deploy/                      # ready-to-ship deliverable packages
+│   ├── ptq_int8/               #   ONNX INT8 package  (21 MB)
+│   ├── qat_int8/               #   Paddle INT8 package (22 MB)
+│   └── ptq_py38/               #   Python-3.8 / Docker service variant
+├── scripts/                     # extraction, review pages, scoring, data prep, batch inference
+├── analysis/                    # model-comparison review dashboards (fp32_ptq, fp32_qat, …)
+├── webapp/                      # Flask inference-timing demo (CPU/GPU)
 ├── size_reduction/             # quantization pipeline (PTQ + QAT) + comparison tooling
 │   └── compat_env/             # Paddle 3.0.0 recipe (exports the ONNX-convertible format)
 ├── finetune/                   # training config + log
 ├── results/                    # ground-truth + comparison CSVs
-└── report/                     # LaTeX methodology report
+└── datasets/                    # working image sets for testing (git-ignored)
 ```
 > Datasets, the training venv, and 200 MB+ checkpoints are **not** in the repo
 > (`.gitignore`) — they're re-derivable; see `PROJECT_SUMMARY.md`.

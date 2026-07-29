@@ -59,7 +59,7 @@ original; PTQ loses ~9 pts. 86/500 (17%) crops are unreadable by *every* model
 **Which to use:** best accuracy → `meterocr_v2_fp32_original_81mb` (81 MB); best small +
 Paddle → `meterocr_v2_int8_qat_22mb_paddle` (22 MB); small + ONNX → the `ptq` model (21 MB).
 
-**Deployment package (chosen: PTQ INT8 for ONNX portability):** `deploy_meterocr_ptq_int8/`
+**Deployment package (chosen: PTQ INT8 for ONNX portability):** `deploy/ptq_int8/`
 — self-contained, ONNX-Runtime-only (no Paddle), bundles model + dict + `meterocr.py`
 (preprocess + CTC decode + 0.95 confidence gate). ~21 MB. Verified standalone. Ship as-is.
 
@@ -344,13 +344,13 @@ report/                     # LaTeX methodology report
 | 2026-07-15 | **Quantized the SERVER model** (Paddle 3.0.0 venv → PIR v1 → ONNX → static INT8) | **`server_int8.onnx` = 21 MB** (4× smaller). PTQ INT8. Key unlock: `quant_pre_process` folded 660 Constant nodes into initializers. |
 | 2026-07-15 | **QAT** (quantization-aware training, PaddleSlim, patched slim tools for NRTR) | **`qat_inference/` = 22 MB INT8**, val 0.9117 ≈ FP32. QAT→ONNX blocked by paddle2onnx 2.1.0 → QAT deploys via Paddle. |
 | 2026-07-15 | **3-model head-to-head** (500 imgs, human-judged) | FP32 94.7% / QAT 92.8% / PTQ 85.3% (on 414 readable). QAT ≫ PTQ for the same size. |
-| 2026-07-15 | **Deployment package built** | `deploy_meterocr_ptq_int8/` — self-contained ONNX package (model+dict+`meterocr.py`), Paddle-free, verified standalone. |
+| 2026-07-15 | **Deployment package built** | `deploy/ptq_int8/` — self-contained ONNX package (model+dict+`meterocr.py`), Paddle-free, verified standalone. |
 
 *(Keep appending rows here as the project progresses.)*
 
 ## 9. Current model artifacts & deploy (2026-07-15)
 - **4 models** (see §0): FP32 81MB, QAT 22MB, PTQ 21MB, old-v1 81MB. Index in `MODELS/`.
-- **Deployment (chosen):** `deploy_meterocr_ptq_int8/` (PTQ INT8, ONNX-only, ~21 MB, portable).
+- **Deployment (chosen):** `deploy/ptq_int8/` (PTQ INT8, ONNX-only, ~21 MB, portable).
 - **Quantization pipeline** (reproducible): `size_reduction/compat_env/` (Paddle 3.0.0 venv).
   Comparison tooling: `size_reduction/compare_3models.py` + `build_3model_page.py`.
 - **Disk note:** tight (~2 GB free). Reclaimable when done: `size_reduction/compat_env/venv`
