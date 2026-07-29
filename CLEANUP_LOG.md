@@ -14,7 +14,7 @@ All deleted items are **regenerable** or **redundant** — nothing unique was lo
 | # | Deleted path | Size | What it was | How to regenerate |
 |---|---|---|---|---|
 | 1 | `size_reduction/compat_env/venv/` | 9.0 GB | Paddle 3.0.0 GPU virtualenv (used for quantization/export) | `bash size_reduction/compat_env/1_setup_venv.sh` (then re-add GPU/onnx libs — see notes below) |
-| 2 | `size_reduction/prune_qat/qat_output/` | 1.7 GB | QAT training checkpoints (`best_accuracy.pdparams`, `.pdopt`, `latest.*`, `best_model/`) | `bash size_reduction/prune_qat/2_qat.sh` (retrains QAT). **The deployable QAT model was already exported** to `deploy_meterocr_qat_int8/` and `size_reduction/prune_qat/qat_inference/`, so this is only needed to re-train. |
+| 2 | `size_reduction/prune_qat/qat_output/` | 1.7 GB | QAT training checkpoints (`best_accuracy.pdparams`, `.pdopt`, `latest.*`, `best_model/`) | `bash size_reduction/prune_qat/2_qat.sh` (retrains QAT). **The deployable QAT model was already exported** to `deploy/qat_int8/` and `size_reduction/prune_qat/qat_inference/`, so this is only needed to re-train. |
 | 3 | `finetune/inference/` | 81 MB | OLD v1 model (fine-tuned on 1,144 labels, ~87%) — superseded by `inference_v2` | Re-export from a checkpoint, or use `inference_v2` (the better model) |
 | 4 | `finetune/inference_backup_2026-07-13/` | 81 MB | Backup copy of the OLD v1 model | redundant (was a copy of #3) |
 | 5 | `finetune/inference_v2_backup_2026-07-13/` | 81 MB | Backup copy of the retrained FP32 model | redundant — `finetune/inference_v2/` (the original) is kept |
@@ -26,8 +26,8 @@ All deleted items are **regenerable** or **redundant** — nothing unique was lo
 
 ## What was KEPT (deliverables & essentials — NOT deleted)
 
-- `deploy_meterocr_ptq_int8/` — PTQ INT8 ONNX deploy package (21 MB) ✅
-- `deploy_meterocr_qat_int8/` — QAT INT8 Paddle deploy package (22 MB) ✅
+- `deploy/ptq_int8/` — PTQ INT8 ONNX deploy package (21 MB) ✅
+- `deploy/qat_int8/` — QAT INT8 Paddle deploy package (22 MB) ✅
 - `finetune/inference_v2/` — the **FP32 original** model (81 MB) ✅
 - `size_reduction/compat_env/output/best_accuracy.pdparams` — retrained checkpoint (205 MB, needed to re-quantize) ✅
 - `size_reduction/models/server_int8.onnx` — PTQ INT8 model (21 MB) ✅

@@ -5,9 +5,9 @@ electricity-meter nameplate image. Runs on **ONNX Runtime only — no PaddlePadd
 
 ## Contents
 ```
-deploy_meterocr_ptq_int8/
+deploy/ptq_int8/
 ├── model/
-│   ├── meterocr_ptq_int8.onnx   # 21 MB INT8 recognizer
+│   ├── meterocr_ptq_int8.onnx   # 22 MB INT8 recognizer (v3, latest retrain)
 │   └── ppocrv5_dict.txt         # character dictionary (for decoding)
 ├── meterocr.py                  # inference module (preprocess + ONNX + CTC decode)
 ├── requirements.txt
@@ -15,8 +15,10 @@ deploy_meterocr_ptq_int8/
 ```
 
 ## Model
+- **Version:** v3 (latest retrain, 2026-07-24; requantized 2026-07-25). Previous
+  v2 build backed up in `deploy/ptq_int8_OLD_backup_2026-07-15/`.
 - **Architecture:** PP-OCRv5 server recognizer, fine-tuned on meter serials, INT8 (PTQ)
-- **Size:** 21 MB · **Input:** `[N,3,48,W]` BGR crop · **Output:** serial string + confidence
+- **Size:** 22 MB · **Input:** `[N,3,48,W]` BGR crop · **Output:** serial string + confidence
 - **Accuracy:** ~85% on unseen out-of-distribution utilities; ~95% on in-domain data
   (measured exact-match on readable crops)
 

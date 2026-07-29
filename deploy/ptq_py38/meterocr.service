@@ -1,0 +1,39 @@
+# systemd unit — keeps the OCR API running and restarts it on failure/reboot.
+#
+#   sudo cp meterocr.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now meterocr
+#
+# ExecStart points at the venv interpreter created in DEPLOY.md step 3.
+# If you installed without a venv, change it to your python3.8 path
+# (check with: which python3.8).
+
+[Unit]
+Description=Meter serial-number OCR API (PTQ INT8 ONNX, Python 3.8)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/meterocr
+
+Environment=METEROCR_THREADS=2
+Environment=METEROCR_THRESHOLD=0.95
+Environment=METEROCR_MAX_MB=10
+# Stops OpenMP from grabbing every vCPU and fighting the ORT thread pool.
+Environment=OMP_NUM_THREADS=2
+
+ExecStart=/opt/meterocr/venv/bin/python /opt/meterocr/app.py --host 0.0.0.0 --port 8080
+
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=meterocr
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

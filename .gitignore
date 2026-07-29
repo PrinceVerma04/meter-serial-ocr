@@ -12,7 +12,13 @@ size_reduction/compat_env/venv/
 data/
 dataset for test/
 new dataset for test/
+retraining_data/
+datasets/
 ROI/
+26788 images for test/
+23 june analysis/
+retraining dataset with label/
+finetune/dataset_retrain/
 
 # --- training outputs & checkpoints (200 MB+ files, > GitHub limit) ---
 size_reduction/compat_env/output/
@@ -21,12 +27,14 @@ size_reduction/prune_qat/prune_output/
 size_reduction/prune_qat/prune_inference/
 size_reduction/legacy_server/
 finetune/output/
+finetune/output_retrain/
 finetune/pretrained/
 
 # --- source model binaries (large; the DEPLOYABLE models live in
-#     deploy_meterocr_*/ and ARE committed) ---
+#     deploy/ and ARE committed) ---
 finetune/inference/
 finetune/inference_v2/
+finetune/inference_v3/
 finetune/inference_backup_2026-07-13/
 finetune/inference_v2_backup_2026-07-13/
 finetune/dataset/
@@ -35,9 +43,17 @@ size_reduction/prune_qat/qat_inference/
 
 # --- regenerable outputs / junk ---
 results/*.html
+analysis/**/dashboard.html
+analysis/**/*.jpg
+analysis/**/*.jpeg
+analysis/**/*.png
 *.bak
 sym_shape_infer_temp.onnx
 *.onnx.data
+
+# --- backups & logs ---
+deploy/*_OLD_backup_*/
+*.log
 
 # --- python / os cruft ---
 __pycache__/
@@ -46,9 +62,9 @@ __pycache__/
 .DS_Store
 .ipynb_checkpoints/
 
-# NOTE: the deploy_meterocr_ptq_int8/ and deploy_meterocr_qat_int8/
-# folders (with their ~21-22 MB model files) ARE committed on purpose —
-# they are the ready-to-ship deliverables.
+# NOTE: the deploy/ptq_int8/ and deploy/qat_int8/ folders (with their
+# ~21-22 MB model files) ARE committed on purpose — they are the
+# ready-to-ship deliverables. deploy/ptq_py38/ is untracked (local variant).
 
 # --- redundant / local ---
 *.zip

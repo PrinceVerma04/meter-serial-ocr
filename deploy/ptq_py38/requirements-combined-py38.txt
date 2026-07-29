@@ -1,0 +1,63 @@
+# ===========================================================================
+# COMBINED venv — flaskML app + meter-OCR, Python 3.8, one environment.
+#
+#     cd ~/prince/meterocr_ptq_py38
+#     python3.8 -m venv venv
+#     ./venv/bin/pip install --upgrade "pip<25"
+#     ./venv/bin/pip install -r requirements-combined-py38.txt
+#
+# Every pin below has a verified cp38 manylinux wheel.
+#
+# *** THE ONE CONSTRAINT THAT DRIVES EVERYTHING ***
+#   onnxruntime >=1.13  needs  numpy >= 1.21.6
+#   TensorFlow  2.4.1   needs  numpy ~= 1.19.2      <- IMPOSSIBLE together
+#   TensorFlow  2.13.1  needs  numpy >= 1.22, <= 1.24.3
+#   => numpy 1.24.3 is the ONLY value that satisfies TF + onnxruntime + pandas.
+#   => TensorFlow MUST be upgraded 2.4.1 -> 2.13.1 for a single environment.
+#
+# Your system Python is untouched by this file. If the app misbehaves on
+# TF 2.13, you can abandon the venv and fall back to the split setup
+# (app on system Python + OCR as an HTTP service) with nothing lost.
+# ===========================================================================
+
+# ----- the pinned core: do not change these four independently -----
+numpy==1.24.3
+tensorflow==2.13.1
+onnxruntime==1.16.3
+opencv-python-headless==4.9.0.80
+
+# ----- meter-OCR API (matched to the Flask version your app was written for) -
+Flask==2.0.1
+Werkzeug==2.0.1
+Jinja2==3.0.1
+itsdangerous==2.0.1
+click==8.0.1
+MarkupSafe==2.0.1
+Flask-Cors==5.0.0
+Flask-Caching==2.0.1
+gunicorn==20.0.4
+gevent==21.12.0
+
+# ----- your flaskML app's data stack (from the server package list) ---------
+# 2.0.3 is the last pandas with a cp38 wheel. Your app had 1.4.0; the API is
+# broadly compatible, but check any .append() calls (removed in 2.0).
+pandas==2.0.3
+scipy==1.10.1
+matplotlib==3.7.5
+seaborn==0.13.2
+Pillow==10.4.0
+requests==2.31.0
+redis==4.6.0
+tqdm==4.67.1
+networkx==3.1
+xlrd==2.0.1
+xxhash==3.5.0
+h5py==3.11.0
+
+# ----- OPTIONAL: uncomment ONLY if your app imports torch -------------------
+# Your server has torch 1.9.0, which does NOT work with numpy 1.24 (it predates
+# the np.bool/np.object removals). 2.4.1 is the newest torch with a cp38 wheel.
+# These are ~800 MB installed — leave commented unless you actually need them.
+# torch==2.4.1
+# torchvision==0.19.1
+# thop==0.1.1.post2209072238
