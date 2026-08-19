@@ -7,6 +7,11 @@
 # --- virtual environments (the compat_env venv is ~9.5 GB) ---
 **/venv/
 size_reduction/compat_env/venv/
+finetune/train_env/
+.venv_infer/
+
+# --- cloned upstream repo (has its own .git/ -- never nest a git repo) ---
+finetune/PaddleOCR_repo/
 
 # --- datasets (thousands of images) ---
 data/
@@ -28,13 +33,18 @@ size_reduction/prune_qat/prune_inference/
 size_reduction/legacy_server/
 finetune/output/
 finetune/output_retrain/
+finetune/output_retrain_v4/
 finetune/pretrained/
+size_reduction/prune_qat/qat_output_v4/
+size_reduction/prune_qat/qat_inference_v4/
+size_reduction/compat_env/inference_v4_convertible/
 
 # --- source model binaries (large; the DEPLOYABLE models live in
 #     deploy/ and ARE committed) ---
 finetune/inference/
 finetune/inference_v2/
 finetune/inference_v3/
+finetune/inference_v4/
 finetune/inference_backup_2026-07-13/
 finetune/inference_v2_backup_2026-07-13/
 finetune/dataset/
