@@ -1,0 +1,6 @@
+# Size-reduction tooling. Install with:
+#   pip install -r quantization/requirements.txt
+paddle2onnx
+onnx
+onnxruntime
+paddleslim

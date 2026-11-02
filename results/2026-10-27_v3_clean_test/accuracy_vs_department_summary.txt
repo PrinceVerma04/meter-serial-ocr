@@ -1,0 +1,28 @@
+Ground truth: aug_departgiven   images scored: 21,042
+
+1) Overall accuracy (exact match with aug_departgiven)
+   Model                                 Correct    Wrong  Accuracy
+   Old model (aug_extracted_serial)            0   21,042      0.0%
+   v3 FP32 (fp32_result)                  17,469    3,573     83.0%
+   v3 PTQ deployed (ptq_result)           16,748    4,294     79.6%
+
+2) Accuracy by confidence status (accepted = conf >= 0.95)
+   Model                               Status      Images  Correct   Wrong  Accuracy
+   v3 FP32 (fp32_result)               accepted    19,940   16,949   2,991     85.0%
+   v3 FP32 (fp32_result)               review       1,102      520     582     47.2%
+   v3 PTQ deployed (ptq_result)        accepted    18,528   15,667   2,861     84.6%
+   v3 PTQ deployed (ptq_result)        review       2,513    1,081   1,432     43.0%
+   v3 PTQ deployed (ptq_result)        blank            1        0       1      0.0%
+
+3) FP32 vs PTQ head-to-head
+   Both correct           16,298
+   Only FP32 correct       1,171
+   Only PTQ correct          450
+   Both wrong              3,123
+
+4) When FP32 and PTQ give the same result (same_result)
+   same_result = yes : 18,803 images, correct 16,298 (86.7%)
+   same_result = no  : 2,239 images, FP32 correct 1,171, PTQ correct 450, both wrong 618
+
+5) Both accepted but different results: 793 images
+   FP32 correct 458, PTQ correct 215, both wrong 120

@@ -1,5 +1,0 @@
-# QAT model runs on PaddlePaddle (any recent 3.x). CPU build shown; for GPU use
-# paddlepaddle-gpu and pass use_gpu=True to MeterOCR.
-paddlepaddle>=3.0.0
-opencv-python>=4.6
-numpy>=1.21

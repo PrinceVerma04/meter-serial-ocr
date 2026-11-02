@@ -1,72 +1,34 @@
 # ============================================================
-#  .gitignore — keep the repo lean (code + docs + deploy pkgs).
-#  Excludes multi-GB venvs, datasets, and >100MB checkpoints
-#  that GitHub can't/shouldn't host.
+#  Meter serial OCR — keep the repo to code + docs + results + the deploy package.
+#  Data and model binaries stay local (too large for GitHub); see datasets/README.md
+#  and models/README.md for what they contain.
 # ============================================================
 
-# --- virtual environments (the compat_env venv is ~9.5 GB) ---
+# --- python environments ---
+.venv/
 **/venv/
-size_reduction/compat_env/venv/
 
-# --- datasets (thousands of images) ---
-data/
-dataset for test/
-new dataset for test/
-retraining_data/
+# --- data and models (local only) ---
 datasets/
-ROI/
-26788 images for test/
-23 june analysis/
-retraining dataset with label/
-finetune/dataset_retrain/
+models/
+quantization/compat_env/inference_*/
 
-# --- training outputs & checkpoints (200 MB+ files, > GitHub limit) ---
-size_reduction/compat_env/output/
-size_reduction/prune_qat/qat_output/
-size_reduction/prune_qat/prune_output/
-size_reduction/prune_qat/prune_inference/
-size_reduction/legacy_server/
-finetune/output/
-finetune/output_retrain/
-finetune/pretrained/
+# --- training work dirs (checkpoints, generated lists) ---
+training/output_*/
 
-# --- source model binaries (large; the DEPLOYABLE models live in
-#     deploy/ and ARE committed) ---
-finetune/inference/
-finetune/inference_v2/
-finetune/inference_v3/
-finetune/inference_backup_2026-07-13/
-finetune/inference_v2_backup_2026-07-13/
-finetune/dataset/
-size_reduction/models/
-size_reduction/prune_qat/qat_inference/
+# --- archives (deploy/meterocr_ptq_py38_v3.zip and docs/*.zip stay local) ---
+*.zip
 
-# --- regenerable outputs / junk ---
-results/*.html
-analysis/**/dashboard.html
-analysis/**/*.jpg
-analysis/**/*.jpeg
-analysis/**/*.png
-*.bak
-sym_shape_infer_temp.onnx
-*.onnx.data
-
-# --- backups & logs ---
-deploy/*_OLD_backup_*/
+# --- logs (except the v4 training log, kept as a record) ---
 *.log
+!training/logs/*.log
 
-# --- python / os cruft ---
+# --- python / editor / os cruft ---
 __pycache__/
 *.pyc
 *.pyo
+.~lock.*#
 .DS_Store
 .ipynb_checkpoints/
-
-# NOTE: the deploy/ptq_int8/ and deploy/qat_int8/ folders (with their
-# ~21-22 MB model files) ARE committed on purpose — they are the
-# ready-to-ship deliverables. deploy/ptq_py38/ is untracked (local variant).
-
-# --- redundant / local ---
-*.zip
 .claude/
-MODELS/meterocr_*
+*.tmp

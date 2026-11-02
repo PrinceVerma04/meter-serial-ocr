@@ -1,269 +1,0 @@
-/home/ganesh/.local/lib/python3.10/site-packages/paddle/utils/cpp_extension/extension_utils.py:712: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
-  warnings.warn(warning_message)
-Skipping import of the encryption module.
-[2026/07/06 20:25:25] ppocr INFO: Architecture : 
-[2026/07/06 20:25:25] ppocr INFO:     Backbone : 
-[2026/07/06 20:25:25] ppocr INFO:         name : PPHGNetV2_B4
-[2026/07/06 20:25:25] ppocr INFO:         text_rec : True
-[2026/07/06 20:25:25] ppocr INFO:     Head : 
-[2026/07/06 20:25:25] ppocr INFO:         head_list : 
-[2026/07/06 20:25:25] ppocr INFO:             CTCHead : 
-[2026/07/06 20:25:25] ppocr INFO:                 Head : 
-[2026/07/06 20:25:25] ppocr INFO:                     fc_decay : 1e-05
-[2026/07/06 20:25:25] ppocr INFO:                 Neck : 
-[2026/07/06 20:25:25] ppocr INFO:                     depth : 2
-[2026/07/06 20:25:25] ppocr INFO:                     dims : 120
-[2026/07/06 20:25:25] ppocr INFO:                     hidden_dims : 120
-[2026/07/06 20:25:25] ppocr INFO:                     kernel_size : [1, 3]
-[2026/07/06 20:25:25] ppocr INFO:                     name : svtr
-[2026/07/06 20:25:25] ppocr INFO:                     use_guide : True
-[2026/07/06 20:25:25] ppocr INFO:             NRTRHead : 
-[2026/07/06 20:25:25] ppocr INFO:                 max_text_length : 25
-[2026/07/06 20:25:25] ppocr INFO:                 nrtr_dim : 384
-[2026/07/06 20:25:25] ppocr INFO:         name : MultiHead
-[2026/07/06 20:25:25] ppocr INFO:     Transform : None
-[2026/07/06 20:25:25] ppocr INFO:     algorithm : SVTR_HGNet
-[2026/07/06 20:25:25] ppocr INFO:     model_type : rec
-[2026/07/06 20:25:25] ppocr INFO: Eval : 
-[2026/07/06 20:25:25] ppocr INFO:     dataset : 
-[2026/07/06 20:25:25] ppocr INFO:         data_dir : /home/ganesh/Desktop/Prince number detection in meter/finetune/dataset
-[2026/07/06 20:25:25] ppocr INFO:         label_file_list : ['/home/ganesh/Desktop/Prince number detection in meter/finetune/dataset/val.txt']
-[2026/07/06 20:25:25] ppocr INFO:         name : SimpleDataSet
-[2026/07/06 20:25:25] ppocr INFO:         transforms : 
-[2026/07/06 20:25:25] ppocr INFO:             DecodeImage : 
-[2026/07/06 20:25:25] ppocr INFO:                 channel_first : False
-[2026/07/06 20:25:25] ppocr INFO:                 img_mode : BGR
-[2026/07/06 20:25:25] ppocr INFO:             MultiLabelEncode : 
-[2026/07/06 20:25:25] ppocr INFO:                 gtc_encode : NRTRLabelEncode
-[2026/07/06 20:25:25] ppocr INFO:             RecResizeImg : 
-[2026/07/06 20:25:25] ppocr INFO:                 image_shape : [3, 48, 320]
-[2026/07/06 20:25:25] ppocr INFO:             KeepKeys : 
-[2026/07/06 20:25:25] ppocr INFO:                 keep_keys : ['image', 'label_ctc', 'label_gtc', 'length', 'valid_ratio']
-[2026/07/06 20:25:25] ppocr INFO:     loader : 
-[2026/07/06 20:25:25] ppocr INFO:         batch_size_per_card : 32
-[2026/07/06 20:25:25] ppocr INFO:         drop_last : False
-[2026/07/06 20:25:25] ppocr INFO:         num_workers : 4
-[2026/07/06 20:25:25] ppocr INFO:         shuffle : False
-[2026/07/06 20:25:25] ppocr INFO: Global : 
-[2026/07/06 20:25:25] ppocr INFO:     cal_metric_during_train : True
-[2026/07/06 20:25:25] ppocr INFO:     calc_epoch_interval : 1
-[2026/07/06 20:25:25] ppocr INFO:     character_dict_path : /home/ganesh/.local/lib/python3.10/site-packages/paddlex/repo_manager/repos/PaddleOCR/ppocr/utils/dict/ppocrv5_dict.txt
-[2026/07/06 20:25:25] ppocr INFO:     checkpoints : None
-[2026/07/06 20:25:25] ppocr INFO:     d2s_train_image_shape : [3, 48, 320]
-[2026/07/06 20:25:25] ppocr INFO:     debug : False
-[2026/07/06 20:25:25] ppocr INFO:     distributed : False
-[2026/07/06 20:25:25] ppocr INFO:     epoch_num : 20
-[2026/07/06 20:25:25] ppocr INFO:     eval_batch_step : [0, 36]
-[2026/07/06 20:25:25] ppocr INFO:     infer_img : doc/imgs_words/ch/word_1.jpg
-[2026/07/06 20:25:25] ppocr INFO:     infer_mode : False
-[2026/07/06 20:25:25] ppocr INFO:     log_smooth_window : 20
-[2026/07/06 20:25:25] ppocr INFO:     max_text_length : 25
-[2026/07/06 20:25:25] ppocr INFO:     model_name : PP-OCRv5_server_rec
-[2026/07/06 20:25:25] ppocr INFO:     pretrained_model : /home/ganesh/Desktop/Prince number detection in meter/finetune/pretrained/PP-OCRv5_server_rec_pretrained
-[2026/07/06 20:25:25] ppocr INFO:     print_batch_step : 20
-[2026/07/06 20:25:25] ppocr INFO:     save_epoch_step : 1000
-[2026/07/06 20:25:25] ppocr INFO:     save_inference_dir : None
-[2026/07/06 20:25:25] ppocr INFO:     save_model_dir : /home/ganesh/Desktop/Prince number detection in meter/finetune/output
-[2026/07/06 20:25:25] ppocr INFO:     save_res_path : ./output/rec/predicts_ppocrv5.txt
-[2026/07/06 20:25:25] ppocr INFO:     use_gpu : True
-[2026/07/06 20:25:25] ppocr INFO:     use_space_char : True
-[2026/07/06 20:25:25] ppocr INFO:     use_visualdl : False
-[2026/07/06 20:25:25] ppocr INFO: Loss : 
-[2026/07/06 20:25:25] ppocr INFO:     loss_config_list : 
-[2026/07/06 20:25:25] ppocr INFO:         CTCLoss : None
-[2026/07/06 20:25:25] ppocr INFO:         NRTRLoss : None
-[2026/07/06 20:25:25] ppocr INFO:     name : MultiLoss
-[2026/07/06 20:25:25] ppocr INFO: Metric : 
-[2026/07/06 20:25:25] ppocr INFO:     main_indicator : acc
-[2026/07/06 20:25:25] ppocr INFO:     name : RecMetric
-[2026/07/06 20:25:25] ppocr INFO: Optimizer : 
-[2026/07/06 20:25:25] ppocr INFO:     beta1 : 0.9
-[2026/07/06 20:25:25] ppocr INFO:     beta2 : 0.999
-[2026/07/06 20:25:25] ppocr INFO:     lr : 
-[2026/07/06 20:25:25] ppocr INFO:         learning_rate : 2e-05
-[2026/07/06 20:25:25] ppocr INFO:         name : Cosine
-[2026/07/06 20:25:25] ppocr INFO:         warmup_epoch : 0
-[2026/07/06 20:25:25] ppocr INFO:     name : Adam
-[2026/07/06 20:25:25] ppocr INFO:     regularizer : 
-[2026/07/06 20:25:25] ppocr INFO:         factor : 3e-05
-[2026/07/06 20:25:25] ppocr INFO:         name : L2
-[2026/07/06 20:25:25] ppocr INFO: PostProcess : 
-[2026/07/06 20:25:25] ppocr INFO:     name : CTCLabelDecode
-[2026/07/06 20:25:25] ppocr INFO: Train : 
-[2026/07/06 20:25:25] ppocr INFO:     dataset : 
-[2026/07/06 20:25:25] ppocr INFO:         data_dir : /home/ganesh/Desktop/Prince number detection in meter/finetune/dataset
-[2026/07/06 20:25:25] ppocr INFO:         ds_width : False
-[2026/07/06 20:25:25] ppocr INFO:         ext_op_transform_idx : 1
-[2026/07/06 20:25:25] ppocr INFO:         label_file_list : ['/home/ganesh/Desktop/Prince number detection in meter/finetune/dataset/train.txt']
-[2026/07/06 20:25:25] ppocr INFO:         name : MultiScaleDataSet
-[2026/07/06 20:25:25] ppocr INFO:         transforms : 
-[2026/07/06 20:25:25] ppocr INFO:             DecodeImage : 
-[2026/07/06 20:25:25] ppocr INFO:                 channel_first : False
-[2026/07/06 20:25:25] ppocr INFO:                 img_mode : BGR
-[2026/07/06 20:25:25] ppocr INFO:             RecAug : None
-[2026/07/06 20:25:25] ppocr INFO:             MultiLabelEncode : 
-[2026/07/06 20:25:25] ppocr INFO:                 gtc_encode : NRTRLabelEncode
-[2026/07/06 20:25:25] ppocr INFO:             KeepKeys : 
-[2026/07/06 20:25:25] ppocr INFO:                 keep_keys : ['image', 'label_ctc', 'label_gtc', 'length', 'valid_ratio']
-[2026/07/06 20:25:25] ppocr INFO:     loader : 
-[2026/07/06 20:25:25] ppocr INFO:         batch_size_per_card : 32
-[2026/07/06 20:25:25] ppocr INFO:         drop_last : True
-[2026/07/06 20:25:25] ppocr INFO:         num_workers : 4
-[2026/07/06 20:25:25] ppocr INFO:         shuffle : True
-[2026/07/06 20:25:25] ppocr INFO:     sampler : 
-[2026/07/06 20:25:25] ppocr INFO:         divided_factor : [8, 16]
-[2026/07/06 20:25:25] ppocr INFO:         first_bs : 32
-[2026/07/06 20:25:25] ppocr INFO:         fix_bs : False
-[2026/07/06 20:25:25] ppocr INFO:         is_training : True
-[2026/07/06 20:25:25] ppocr INFO:         name : MultiScaleSampler
-[2026/07/06 20:25:25] ppocr INFO:         scales : [[320, 32], [320, 48], [320, 64]]
-[2026/07/06 20:25:25] ppocr INFO: profiler_options : None
-[2026/07/06 20:25:25] ppocr INFO: train with paddle 3.3.1 and device Place(gpu:0)
-[2026/07/06 20:25:25] ppocr INFO: Initialize indexs of datasets:['/home/ganesh/Desktop/Prince number detection in meter/finetune/dataset/train.txt']
-[2026/07/06 20:25:25] ppocr INFO: Initialize indexs of datasets:['/home/ganesh/Desktop/Prince number detection in meter/finetune/dataset/val.txt']
-W0706 20:25:25.115340 1770492 gpu_resources.cc:116] Please NOTE: device: 0, GPU Compute Capability: 6.1, Driver API Version: 12.0, Runtime API Version: 11.8
-[2026-07-06 20:25:29,215] [    INFO] optimizer.py:254 - If regularizer of a Parameter has been set by 'paddle.ParamAttr' or 'static.WeightNormParamAttr' already. The weight_decay[3e-05] in Optimizer will not take effect, and it will only be applied to other Parameters!
-[2026/07/06 20:25:29] ppocr INFO: train dataloader has 36 iters
-[2026/07/06 20:25:29] ppocr INFO: valid dataloader has 6 iters
-[2026/07/06 20:25:29] ppocr INFO: load pretrain successful from /home/ganesh/Desktop/Prince number detection in meter/finetune/pretrained/PP-OCRv5_server_rec_pretrained
-[2026/07/06 20:25:29] ppocr INFO: During the training process, after the 0th iteration, an evaluation is run every 36 iterations
-W0706 20:25:29.857393 1770492 gpu_resources.cc:245] WARNING: device: 0. The installed Paddle is compiled with CUDNN 8.9, but CUDNN version in your machine is 8.9, which may cause serious incompatible bug. Please recompile or reinstall Paddle with compatible CUDNN version.
-[2026/07/06 20:25:36] ppocr INFO: epoch: [1/20], global_step: 20, lr: 0.000020, acc: 0.433035, norm_edit_dis: 0.824677, CTCLoss: 9.142198, NRTRLoss: 1.629135, loss: 10.785765, avg_reader_cost: 0.02388 s, avg_batch_cost: 0.36171 s, avg_samples: 20.65, ips: 57.08941 samples/s, eta: 0:04:13, max_mem_reserved: 4380 MB, max_mem_allocated: 3718 MB
-[2026/07/06 20:25:41] ppocr INFO: epoch: [1/20], global_step: 36, lr: 0.000020, acc: 0.645833, norm_edit_dis: 0.909018, CTCLoss: 4.541144, NRTRLoss: 1.463788, loss: 6.046750, avg_reader_cost: 0.00210 s, avg_batch_cost: 0.23241 s, avg_samples: 20.75, ips: 89.28255 samples/s, eta: 0:03:45, max_mem_reserved: 4470 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.81it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.12it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.06it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.73it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.21it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.24it/s]
-[2026/07/06 20:25:42] ppocr INFO: cur metric, acc: 0.6742856757551042, norm_edit_dis: 0.9457511623048743, fps: 401.9807597731831
-[2026/07/06 20:25:45] ppocr INFO: save best model is to /home/ganesh/Desktop/Prince number detection in meter/finetune/output/best_accuracy
-[2026/07/06 20:25:45] ppocr INFO: best metric, acc: 0.6742856757551042, is_float16: False, norm_edit_dis: 0.9457511623048743, fps: 401.9807597731831, best_epoch: 1
-[2026/07/06 20:25:47] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:25:49] ppocr INFO: epoch: [2/20], global_step: 40, lr: 0.000020, acc: 0.625000, norm_edit_dis: 0.909018, CTCLoss: 4.427511, NRTRLoss: 1.460797, loss: 5.921929, avg_reader_cost: 0.03883 s, avg_batch_cost: 0.09800 s, avg_samples: 4.8, ips: 48.97827 samples/s, eta: 0:03:55, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:25:54] ppocr INFO: epoch: [2/20], global_step: 60, lr: 0.000020, acc: 0.809523, norm_edit_dis: 0.959820, CTCLoss: 1.902171, NRTRLoss: 1.386629, loss: 3.300424, avg_reader_cost: 0.00269 s, avg_batch_cost: 0.28853 s, avg_samples: 24.15, ips: 83.70116 samples/s, eta: 0:03:35, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:25:58] ppocr INFO: epoch: [2/20], global_step: 72, lr: 0.000020, acc: 0.781250, norm_edit_dis: 0.965893, CTCLoss: 1.325324, NRTRLoss: 1.367119, loss: 2.698734, avg_reader_cost: 0.00169 s, avg_batch_cost: 0.16679 s, avg_samples: 12.45, ips: 74.64479 samples/s, eta: 0:03:26, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.88it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.19it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.15it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.75it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.22it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.29it/s]
-[2026/07/06 20:25:59] ppocr INFO: cur metric, acc: 0.8171428104489823, norm_edit_dis: 0.971970068882702, fps: 411.24405827762325
-[2026/07/06 20:26:03] ppocr INFO: save best model is to /home/ganesh/Desktop/Prince number detection in meter/finetune/output/best_accuracy
-[2026/07/06 20:26:03] ppocr INFO: best metric, acc: 0.8171428104489823, is_float16: False, norm_edit_dis: 0.971970068882702, fps: 411.24405827762325, best_epoch: 2
-[2026/07/06 20:26:05] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:26:08] ppocr INFO: epoch: [3/20], global_step: 80, lr: 0.000020, acc: 0.796875, norm_edit_dis: 0.966204, CTCLoss: 1.001771, NRTRLoss: 1.356671, loss: 2.359116, avg_reader_cost: 0.04355 s, avg_batch_cost: 0.14025 s, avg_samples: 9.05, ips: 64.52983 samples/s, eta: 0:03:26, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:26:13] ppocr INFO: epoch: [3/20], global_step: 100, lr: 0.000019, acc: 0.828125, norm_edit_dis: 0.973528, CTCLoss: 1.184095, NRTRLoss: 1.373344, loss: 2.564968, avg_reader_cost: 0.00273 s, avg_batch_cost: 0.25007 s, avg_samples: 23.85, ips: 95.37192 samples/s, eta: 0:03:10, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:26:15] ppocr INFO: epoch: [3/20], global_step: 108, lr: 0.000019, acc: 0.809523, norm_edit_dis: 0.973027, CTCLoss: 1.164216, NRTRLoss: 1.359557, loss: 2.537560, avg_reader_cost: 0.00107 s, avg_batch_cost: 0.09762 s, avg_samples: 8.5, ips: 87.07444 samples/s, eta: 0:03:05, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.68it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.22it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.57it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  5.78it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  6.75it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.80it/s]
-[2026/07/06 20:26:16] ppocr INFO: cur metric, acc: 0.8228570958367374, norm_edit_dis: 0.9733329440248415, fps: 401.32096351603747
-[2026/07/06 20:26:21] ppocr INFO: save best model is to /home/ganesh/Desktop/Prince number detection in meter/finetune/output/best_accuracy
-[2026/07/06 20:26:21] ppocr INFO: best metric, acc: 0.8228570958367374, is_float16: False, norm_edit_dis: 0.9733329440248415, fps: 401.32096351603747, best_epoch: 3
-[2026/07/06 20:26:23] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:26:27] ppocr INFO: epoch: [4/20], global_step: 120, lr: 0.000019, acc: 0.811011, norm_edit_dis: 0.981086, CTCLoss: 0.726589, NRTRLoss: 1.343279, loss: 2.067735, avg_reader_cost: 0.04241 s, avg_batch_cost: 0.19116 s, avg_samples: 13.75, ips: 71.92960 samples/s, eta: 0:03:02, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:26:31] ppocr INFO: epoch: [4/20], global_step: 140, lr: 0.000018, acc: 0.812499, norm_edit_dis: 0.973447, CTCLoss: 1.192754, NRTRLoss: 1.357112, loss: 2.555938, avg_reader_cost: 0.00264 s, avg_batch_cost: 0.24040 s, avg_samples: 22.6, ips: 94.00917 samples/s, eta: 0:02:51, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:26:32] ppocr INFO: epoch: [4/20], global_step: 144, lr: 0.000018, acc: 0.795387, norm_edit_dis: 0.965849, CTCLoss: 1.370433, NRTRLoss: 1.363756, loss: 2.753946, avg_reader_cost: 0.00055 s, avg_batch_cost: 0.04889 s, avg_samples: 5.05, ips: 103.28823 samples/s, eta: 0:02:49, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.76it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.41it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.81it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  6.01it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  6.86it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.95it/s]
-[2026/07/06 20:26:34] ppocr INFO: cur metric, acc: 0.8171428104489823, norm_edit_dis: 0.974170233671429, fps: 403.9476631399364
-[2026/07/06 20:26:34] ppocr INFO: best metric, acc: 0.8228570958367374, is_float16: False, norm_edit_dis: 0.9733329440248415, fps: 401.32096351603747, best_epoch: 3
-[2026/07/06 20:26:36] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:26:40] ppocr INFO: epoch: [5/20], global_step: 160, lr: 0.000018, acc: 0.857142, norm_edit_dis: 0.976190, CTCLoss: 0.949825, NRTRLoss: 1.363558, loss: 2.335857, avg_reader_cost: 0.03893 s, avg_batch_cost: 0.23317 s, avg_samples: 18.85, ips: 80.84176 samples/s, eta: 0:02:44, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:26:45] ppocr INFO: epoch: [5/20], global_step: 180, lr: 0.000017, acc: 0.889880, norm_edit_dis: 0.988426, CTCLoss: 0.673562, NRTRLoss: 1.331743, loss: 2.002410, avg_reader_cost: 0.00266 s, avg_batch_cost: 0.24097 s, avg_samples: 22.55, ips: 93.57982 samples/s, eta: 0:02:35, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.83it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.50it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.92it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  6.05it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  6.97it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  5.03it/s]
-[2026/07/06 20:26:46] ppocr INFO: cur metric, acc: 0.857142808163268, norm_edit_dis: 0.9776528778122079, fps: 402.8909218751801
-[2026/07/06 20:26:51] ppocr INFO: save best model is to /home/ganesh/Desktop/Prince number detection in meter/finetune/output/best_accuracy
-[2026/07/06 20:26:51] ppocr INFO: best metric, acc: 0.857142808163268, is_float16: False, norm_edit_dis: 0.9776528778122079, fps: 402.8909218751801, best_epoch: 5
-[2026/07/06 20:26:53] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:26:58] ppocr INFO: epoch: [6/20], global_step: 200, lr: 0.000017, acc: 0.875000, norm_edit_dis: 0.986742, CTCLoss: 0.638738, NRTRLoss: 1.336835, loss: 1.983755, avg_reader_cost: 0.03689 s, avg_batch_cost: 0.27654 s, avg_samples: 22.05, ips: 79.73630 samples/s, eta: 0:02:29, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:27:02] ppocr INFO: epoch: [6/20], global_step: 216, lr: 0.000016, acc: 0.857142, norm_edit_dis: 0.982422, CTCLoss: 0.770515, NRTRLoss: 1.335059, loss: 2.127154, avg_reader_cost: 0.00231 s, avg_batch_cost: 0.19375 s, avg_samples: 19.35, ips: 99.87117 samples/s, eta: 0:02:22, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.80it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.44it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.86it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  6.04it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  6.87it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.94it/s]
-[2026/07/06 20:27:03] ppocr INFO: cur metric, acc: 0.8342856666122476, norm_edit_dis: 0.9757402085475336, fps: 401.1533929559083
-[2026/07/06 20:27:03] ppocr INFO: best metric, acc: 0.857142808163268, is_float16: False, norm_edit_dis: 0.9776528778122079, fps: 402.8909218751801, best_epoch: 5
-[2026/07/06 20:27:05] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:27:07] ppocr INFO: epoch: [7/20], global_step: 220, lr: 0.000016, acc: 0.857142, norm_edit_dis: 0.985416, CTCLoss: 0.771753, NRTRLoss: 1.339980, loss: 2.127154, avg_reader_cost: 0.03384 s, avg_batch_cost: 0.08411 s, avg_samples: 5.05, ips: 60.04067 samples/s, eta: 0:02:22, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:27:12] ppocr INFO: epoch: [7/20], global_step: 240, lr: 0.000015, acc: 0.843750, norm_edit_dis: 0.979167, CTCLoss: 0.731211, NRTRLoss: 1.340441, loss: 2.076554, avg_reader_cost: 0.00264 s, avg_batch_cost: 0.24733 s, avg_samples: 24.7, ips: 99.86602 samples/s, eta: 0:02:15, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:27:15] ppocr INFO: epoch: [7/20], global_step: 252, lr: 0.000015, acc: 0.937500, norm_edit_dis: 0.992188, CTCLoss: 0.387875, NRTRLoss: 1.335555, loss: 1.726494, avg_reader_cost: 0.00159 s, avg_batch_cost: 0.14139 s, avg_samples: 11.65, ips: 82.39637 samples/s, eta: 0:02:11, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.72it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.01it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  3.96it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.66it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.15it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.15it/s]
-[2026/07/06 20:27:16] ppocr INFO: cur metric, acc: 0.857142808163268, norm_edit_dis: 0.9771566280586009, fps: 410.5287296148765
-[2026/07/06 20:27:20] ppocr INFO: save best model is to /home/ganesh/Desktop/Prince number detection in meter/finetune/output/best_accuracy
-[2026/07/06 20:27:20] ppocr INFO: best metric, acc: 0.857142808163268, is_float16: False, norm_edit_dis: 0.9771566280586009, fps: 410.5287296148765, best_epoch: 7
-[2026/07/06 20:27:22] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:27:25] ppocr INFO: epoch: [8/20], global_step: 260, lr: 0.000015, acc: 0.937499, norm_edit_dis: 0.992188, CTCLoss: 0.336504, NRTRLoss: 1.325810, loss: 1.655812, avg_reader_cost: 0.03347 s, avg_batch_cost: 0.13034 s, avg_samples: 9.3, ips: 71.35189 samples/s, eta: 0:02:09, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:27:30] ppocr INFO: epoch: [8/20], global_step: 280, lr: 0.000014, acc: 0.889881, norm_edit_dis: 0.983590, CTCLoss: 0.495459, NRTRLoss: 1.337775, loss: 1.834352, avg_reader_cost: 0.00270 s, avg_batch_cost: 0.24546 s, avg_samples: 23.9, ips: 97.36781 samples/s, eta: 0:02:02, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:27:32] ppocr INFO: epoch: [8/20], global_step: 288, lr: 0.000014, acc: 0.906250, norm_edit_dis: 0.989583, CTCLoss: 0.411146, NRTRLoss: 1.333109, loss: 1.748504, avg_reader_cost: 0.00105 s, avg_batch_cost: 0.09738 s, avg_samples: 8.2, ips: 84.21040 samples/s, eta: 0:02:00, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.72it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.33it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.75it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  5.91it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  6.86it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.73it/s]
-[2026/07/06 20:27:33] ppocr INFO: cur metric, acc: 0.851428522775513, norm_edit_dis: 0.9773426903516782, fps: 408.86623113875993
-[2026/07/06 20:27:33] ppocr INFO: best metric, acc: 0.857142808163268, is_float16: False, norm_edit_dis: 0.9771566280586009, fps: 410.5287296148765, best_epoch: 7
-[2026/07/06 20:27:35] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:27:39] ppocr INFO: epoch: [9/20], global_step: 300, lr: 0.000013, acc: 0.866071, norm_edit_dis: 0.983745, CTCLoss: 0.559499, NRTRLoss: 1.332788, loss: 1.896032, avg_reader_cost: 0.04109 s, avg_batch_cost: 0.19011 s, avg_samples: 15.4, ips: 81.00479 samples/s, eta: 0:01:57, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:27:44] ppocr INFO: epoch: [9/20], global_step: 320, lr: 0.000012, acc: 0.952380, norm_edit_dis: 0.993622, CTCLoss: 0.255378, NRTRLoss: 1.324166, loss: 1.575733, avg_reader_cost: 0.00283 s, avg_batch_cost: 0.24252 s, avg_samples: 21.5, ips: 88.65221 samples/s, eta: 0:01:50, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:27:45] ppocr INFO: epoch: [9/20], global_step: 324, lr: 0.000012, acc: 0.944940, norm_edit_dis: 0.992692, CTCLoss: 0.255378, NRTRLoss: 1.324634, loss: 1.575733, avg_reader_cost: 0.00060 s, avg_batch_cost: 0.05105 s, avg_samples: 4.5, ips: 88.15487 samples/s, eta: 0:01:49, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.82it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.50it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.90it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  6.00it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  6.96it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.98it/s]
-[2026/07/06 20:27:46] ppocr INFO: cur metric, acc: 0.8742856643265334, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999
-[2026/07/06 20:27:50] ppocr INFO: save best model is to /home/ganesh/Desktop/Prince number detection in meter/finetune/output/best_accuracy
-[2026/07/06 20:27:50] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:27:52] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:27:57] ppocr INFO: epoch: [10/20], global_step: 340, lr: 0.000011, acc: 0.937499, norm_edit_dis: 0.988426, CTCLoss: 0.326743, NRTRLoss: 1.322143, loss: 1.652995, avg_reader_cost: 0.04139 s, avg_batch_cost: 0.23427 s, avg_samples: 17.0, ips: 72.56705 samples/s, eta: 0:01:45, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:28:02] ppocr INFO: epoch: [10/20], global_step: 360, lr: 0.000010, acc: 0.904761, norm_edit_dis: 0.984251, CTCLoss: 0.509053, NRTRLoss: 1.332136, loss: 1.840870, avg_reader_cost: 0.00281 s, avg_batch_cost: 0.24157 s, avg_samples: 24.4, ips: 101.00510 samples/s, eta: 0:01:39, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.74it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.37it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.82it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  6.04it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  7.04it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.95it/s]
-[2026/07/06 20:28:03] ppocr INFO: cur metric, acc: 0.7485713857959208, norm_edit_dis: 0.9544377665203118, fps: 412.62027913021825
-[2026/07/06 20:28:03] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:28:05] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:28:11] ppocr INFO: epoch: [11/20], global_step: 380, lr: 0.000010, acc: 0.904761, norm_edit_dis: 0.986421, CTCLoss: 0.402243, NRTRLoss: 1.331017, loss: 1.737682, avg_reader_cost: 0.04062 s, avg_batch_cost: 0.27614 s, avg_samples: 20.65, ips: 74.77980 samples/s, eta: 0:01:33, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:28:15] ppocr INFO: epoch: [11/20], global_step: 396, lr: 0.000009, acc: 0.906250, norm_edit_dis: 0.987851, CTCLoss: 0.494815, NRTRLoss: 1.320963, loss: 1.825325, avg_reader_cost: 0.00227 s, avg_batch_cost: 0.19946 s, avg_samples: 20.75, ips: 104.02924 samples/s, eta: 0:01:29, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.87it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.55it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  5.03it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  6.24it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  7.18it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  5.06it/s]
-[2026/07/06 20:28:16] ppocr INFO: cur metric, acc: 0.7714285273469412, norm_edit_dis: 0.9596153346877334, fps: 415.3032351075682
-[2026/07/06 20:28:16] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:28:18] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:28:19] ppocr INFO: epoch: [12/20], global_step: 400, lr: 0.000009, acc: 0.906250, norm_edit_dis: 0.986412, CTCLoss: 0.520928, NRTRLoss: 1.321962, loss: 1.844363, avg_reader_cost: 0.03487 s, avg_batch_cost: 0.08653 s, avg_samples: 4.5, ips: 52.00665 samples/s, eta: 0:01:28, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:28:25] ppocr INFO: epoch: [12/20], global_step: 420, lr: 0.000008, acc: 0.937500, norm_edit_dis: 0.992405, CTCLoss: 0.325639, NRTRLoss: 1.320022, loss: 1.653802, avg_reader_cost: 0.00268 s, avg_batch_cost: 0.25590 s, avg_samples: 23.35, ips: 91.24493 samples/s, eta: 0:01:22, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:28:28] ppocr INFO: epoch: [12/20], global_step: 432, lr: 0.000007, acc: 0.999999, norm_edit_dis: 1.000000, CTCLoss: 0.194786, NRTRLoss: 1.316363, loss: 1.508728, avg_reader_cost: 0.00160 s, avg_batch_cost: 0.15688 s, avg_samples: 13.55, ips: 86.37069 samples/s, eta: 0:01:19, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.68it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  2.93it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  3.88it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.57it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.04it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.02it/s]
-[2026/07/06 20:28:29] ppocr INFO: cur metric, acc: 0.857142808163268, norm_edit_dis: 0.9792422407393216, fps: 408.30059247829035
-[2026/07/06 20:28:29] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:28:31] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:28:34] ppocr INFO: epoch: [13/20], global_step: 440, lr: 0.000007, acc: 0.952380, norm_edit_dis: 0.994048, CTCLoss: 0.308804, NRTRLoss: 1.321910, loss: 1.636956, avg_reader_cost: 0.03356 s, avg_batch_cost: 0.13226 s, avg_samples: 8.75, ips: 66.15948 samples/s, eta: 0:01:17, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:28:39] ppocr INFO: epoch: [13/20], global_step: 460, lr: 0.000006, acc: 0.944940, norm_edit_dis: 0.994086, CTCLoss: 0.225746, NRTRLoss: 1.321033, loss: 1.543928, avg_reader_cost: 0.00284 s, avg_batch_cost: 0.24091 s, avg_samples: 22.3, ips: 92.56720 samples/s, eta: 0:01:11, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:28:41] ppocr INFO: epoch: [13/20], global_step: 468, lr: 0.000006, acc: 0.921875, norm_edit_dis: 0.991617, CTCLoss: 0.444375, NRTRLoss: 1.321033, loss: 1.779988, avg_reader_cost: 0.00108 s, avg_batch_cost: 0.10147 s, avg_samples: 10.35, ips: 102.00474 samples/s, eta: 0:01:09, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.71it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.31it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.73it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  5.88it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  6.77it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.82it/s]
-[2026/07/06 20:28:42] ppocr INFO: cur metric, acc: 0.8457142373877579, norm_edit_dis: 0.9771127882702517, fps: 403.95344319278126
-[2026/07/06 20:28:42] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:28:44] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:28:48] ppocr INFO: epoch: [14/20], global_step: 480, lr: 0.000005, acc: 0.889880, norm_edit_dis: 0.983826, CTCLoss: 0.472451, NRTRLoss: 1.327757, loss: 1.804729, avg_reader_cost: 0.04097 s, avg_batch_cost: 0.18877 s, avg_samples: 13.0, ips: 68.86810 samples/s, eta: 0:01:06, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:28:53] ppocr INFO: epoch: [14/20], global_step: 500, lr: 0.000005, acc: 0.976190, norm_edit_dis: 0.997179, CTCLoss: 0.218897, NRTRLoss: 1.317120, loss: 1.538581, avg_reader_cost: 0.00287 s, avg_batch_cost: 0.24399 s, avg_samples: 23.35, ips: 95.69918 samples/s, eta: 0:01:00, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:28:54] ppocr INFO: epoch: [14/20], global_step: 504, lr: 0.000004, acc: 0.944940, norm_edit_dis: 0.993869, CTCLoss: 0.257402, NRTRLoss: 1.317413, loss: 1.580481, avg_reader_cost: 0.00054 s, avg_batch_cost: 0.04872 s, avg_samples: 5.05, ips: 103.65089 samples/s, eta: 0:00:59, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.83it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.14it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.08it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.72it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.20it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.22it/s]
-[2026/07/06 20:28:55] ppocr INFO: cur metric, acc: 0.8342856666122476, norm_edit_dis: 0.9764219127692307, fps: 410.2387087038414
-[2026/07/06 20:28:55] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:28:57] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:29:02] ppocr INFO: epoch: [15/20], global_step: 520, lr: 0.000004, acc: 0.937500, norm_edit_dis: 0.992188, CTCLoss: 0.195778, NRTRLoss: 1.318181, loss: 1.510207, avg_reader_cost: 0.03407 s, avg_batch_cost: 0.22987 s, avg_samples: 18.05, ips: 78.52398 samples/s, eta: 0:00:54, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:29:07] ppocr INFO: epoch: [15/20], global_step: 540, lr: 0.000003, acc: 0.889881, norm_edit_dis: 0.988285, CTCLoss: 0.347500, NRTRLoss: 1.321449, loss: 1.671939, avg_reader_cost: 0.00285 s, avg_batch_cost: 0.24355 s, avg_samples: 23.35, ips: 95.87280 samples/s, eta: 0:00:49, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.78it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.42it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.83it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  6.04it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  7.01it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.87it/s]
-[2026/07/06 20:29:08] ppocr INFO: cur metric, acc: 0.8457142373877579, norm_edit_dis: 0.9779642116519698, fps: 409.92231056673467
-[2026/07/06 20:29:08] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:29:10] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:29:16] ppocr INFO: epoch: [16/20], global_step: 560, lr: 0.000003, acc: 0.904761, norm_edit_dis: 0.988938, CTCLoss: 0.435990, NRTRLoss: 1.325289, loss: 1.759973, avg_reader_cost: 0.03721 s, avg_batch_cost: 0.30679 s, avg_samples: 24.45, ips: 79.69633 samples/s, eta: 0:00:43, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:29:20] ppocr INFO: epoch: [16/20], global_step: 576, lr: 0.000002, acc: 0.984375, norm_edit_dis: 0.998264, CTCLoss: 0.207701, NRTRLoss: 1.317523, loss: 1.527647, avg_reader_cost: 0.00211 s, avg_batch_cost: 0.19959 s, avg_samples: 16.95, ips: 84.92502 samples/s, eta: 0:00:39, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:03,  1.65it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  2.93it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  3.90it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.60it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.10it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  3.94it/s]
-[2026/07/06 20:29:21] ppocr INFO: cur metric, acc: 0.851428522775513, norm_edit_dis: 0.9777575350537419, fps: 411.200285037865
-[2026/07/06 20:29:21] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:29:24] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:29:25] ppocr INFO: epoch: [17/20], global_step: 580, lr: 0.000002, acc: 0.944940, norm_edit_dis: 0.990900, CTCLoss: 0.258793, NRTRLoss: 1.320521, loss: 1.578360, avg_reader_cost: 0.03835 s, avg_batch_cost: 0.08956 s, avg_samples: 4.25, ips: 47.45535 samples/s, eta: 0:00:38, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:29:30] ppocr INFO: epoch: [17/20], global_step: 600, lr: 0.000002, acc: 0.976190, norm_edit_dis: 0.998016, CTCLoss: 0.265264, NRTRLoss: 1.317401, loss: 1.584264, avg_reader_cost: 0.00276 s, avg_batch_cost: 0.23963 s, avg_samples: 22.55, ips: 94.10226 samples/s, eta: 0:00:32, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:29:33] ppocr INFO: epoch: [17/20], global_step: 612, lr: 0.000001, acc: 0.952380, norm_edit_dis: 0.995370, CTCLoss: 0.263991, NRTRLoss: 1.320205, loss: 1.582783, avg_reader_cost: 0.00158 s, avg_batch_cost: 0.14483 s, avg_samples: 14.6, ips: 100.80527 samples/s, eta: 0:00:29, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.85it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.16it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.08it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.76it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.18it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.21it/s]
-[2026/07/06 20:29:34] ppocr INFO: cur metric, acc: 0.8399999520000028, norm_edit_dis: 0.9768412291897963, fps: 406.5866754261525
-[2026/07/06 20:29:34] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:29:36] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:29:39] ppocr INFO: epoch: [18/20], global_step: 620, lr: 0.000001, acc: 0.952380, norm_edit_dis: 0.994378, CTCLoss: 0.260636, NRTRLoss: 1.319259, loss: 1.577693, avg_reader_cost: 0.03491 s, avg_batch_cost: 0.13005 s, avg_samples: 8.75, ips: 67.28334 samples/s, eta: 0:00:27, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:29:44] ppocr INFO: epoch: [18/20], global_step: 640, lr: 0.000001, acc: 0.905506, norm_edit_dis: 0.986892, CTCLoss: 0.455649, NRTRLoss: 1.321120, loss: 1.771463, avg_reader_cost: 0.00275 s, avg_batch_cost: 0.24676 s, avg_samples: 24.45, ips: 99.08388 samples/s, eta: 0:00:21, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:29:46] ppocr INFO: epoch: [18/20], global_step: 648, lr: 0.000001, acc: 0.952380, norm_edit_dis: 0.990088, CTCLoss: 0.394554, NRTRLoss: 1.314239, loss: 1.712718, avg_reader_cost: 0.00105 s, avg_batch_cost: 0.09422 s, avg_samples: 8.2, ips: 87.02805 samples/s, eta: 0:00:19, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.80it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.44it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.85it/s]eval model::  67%|██████▋   | 4/6 [00:00<00:00,  5.98it/s]eval model::  83%|████████▎ | 5/6 [00:00<00:00,  6.94it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.86it/s]
-[2026/07/06 20:29:47] ppocr INFO: cur metric, acc: 0.851428522775513, norm_edit_dis: 0.9787317888144293, fps: 403.6535435842189
-[2026/07/06 20:29:47] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:29:49] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:29:53] ppocr INFO: epoch: [19/20], global_step: 660, lr: 0.000000, acc: 0.976190, norm_edit_dis: 0.997062, CTCLoss: 0.164147, NRTRLoss: 1.313492, loss: 1.479044, avg_reader_cost: 0.03732 s, avg_batch_cost: 0.18182 s, avg_samples: 12.75, ips: 70.12283 samples/s, eta: 0:00:16, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:29:58] ppocr INFO: epoch: [19/20], global_step: 680, lr: 0.000000, acc: 0.937500, norm_edit_dis: 0.993186, CTCLoss: 0.278043, NRTRLoss: 1.320345, loss: 1.602320, avg_reader_cost: 0.00315 s, avg_batch_cost: 0.24401 s, avg_samples: 23.9, ips: 97.94743 samples/s, eta: 0:00:10, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:29:59] ppocr INFO: epoch: [19/20], global_step: 684, lr: 0.000000, acc: 0.952380, norm_edit_dis: 0.994048, CTCLoss: 0.213417, NRTRLoss: 1.320345, loss: 1.533568, avg_reader_cost: 0.00053 s, avg_batch_cost: 0.04789 s, avg_samples: 4.75, ips: 99.18038 samples/s, eta: 0:00:09, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.74it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.00it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  3.96it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.64it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.13it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.12it/s]
-[2026/07/06 20:30:00] ppocr INFO: cur metric, acc: 0.851428522775513, norm_edit_dis: 0.9778916492978394, fps: 409.38639716442594
-[2026/07/06 20:30:00] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:30:02] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:30:07] ppocr INFO: epoch: [20/20], global_step: 700, lr: 0.000000, acc: 0.952380, norm_edit_dis: 0.994048, CTCLoss: 0.221017, NRTRLoss: 1.316567, loss: 1.535480, avg_reader_cost: 0.03798 s, avg_batch_cost: 0.25255 s, avg_samples: 18.3, ips: 72.46128 samples/s, eta: 0:00:05, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-[2026/07/06 20:30:12] ppocr INFO: epoch: [20/20], global_step: 720, lr: 0.000000, acc: 0.952380, norm_edit_dis: 0.994048, CTCLoss: 0.169374, NRTRLoss: 1.318115, loss: 1.486643, avg_reader_cost: 0.00270 s, avg_batch_cost: 0.26152 s, avg_samples: 23.1, ips: 88.32808 samples/s, eta: 0:00:00, max_mem_reserved: 4695 MB, max_mem_allocated: 3729 MB
-eval model::   0%|          | 0/6 [00:00<?, ?it/s]eval model::  17%|█▋        | 1/6 [00:00<00:02,  1.82it/s]eval model::  33%|███▎      | 2/6 [00:00<00:01,  3.12it/s]eval model::  50%|█████     | 3/6 [00:00<00:00,  4.07it/s]eval model::  67%|██████▋   | 4/6 [00:01<00:00,  4.74it/s]eval model::  83%|████████▎ | 5/6 [00:01<00:00,  5.21it/s]eval model:: 100%|██████████| 6/6 [00:01<00:00,  4.15it/s]
-[2026/07/06 20:30:14] ppocr INFO: cur metric, acc: 0.8399999520000028, norm_edit_dis: 0.9754239957106904, fps: 407.6855613844586
-[2026/07/06 20:30:14] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9
-[2026/07/06 20:30:16] ppocr INFO: save model in /home/ganesh/Desktop/Prince number detection in meter/finetune/output/latest
-[2026/07/06 20:30:16] ppocr INFO: best metric, acc: 0.8742856643265334, is_float16: False, norm_edit_dis: 0.9803332924823133, fps: 404.5733120574999, best_epoch: 9

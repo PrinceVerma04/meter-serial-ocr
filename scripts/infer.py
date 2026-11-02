@@ -8,11 +8,11 @@ recognition-only model + confidence gate), so results match the main pipeline.
 Examples
 --------
   # one image  -> prints the reading to the terminal
-  python3 scripts/infer.py "dataset for test/ROI/xxxx_null_bigImg_1781439572.jpg"
+  python3 scripts/infer.py datasets/test/tpddl/images/c09yz8olRxqAmao10dnaa-_null_bigImg_1781491789.jpg
 
   # a folder   -> reads every image, writes a CSV, prints a summary
-  python3 scripts/infer.py "dataset for test/ROI"
-  python3 scripts/infer.py "dataset for test/ROI" --out results/roi_infer.csv
+  python3 scripts/infer.py datasets/test/tpddl/images
+  python3 scripts/infer.py datasets/test/tpddl/images --out results/tpddl_infer.csv
 
   # options
   --threshold 0.95   confidence gate for accepted/review (default 0.95)

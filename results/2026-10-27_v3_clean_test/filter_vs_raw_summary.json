@@ -1,0 +1,129 @@
+{
+  "images": 21042,
+  "generated": "2026-10-28T12:20:24",
+  "methods": {
+    "raw": "Raw crop (no filter)",
+    "contrast": "Contrast boosted",
+    "sobel": "Edge strength (Sobel)"
+  },
+  "models": {
+    "fp32": "v3 FP32",
+    "ptq": "v3 PTQ (deployed)"
+  },
+  "stats": {
+    "raw": {
+      "fp32": {
+        "images": 21042,
+        "correct": 17469,
+        "wrong": 3573,
+        "accuracy": 83.02,
+        "accepted": 19940,
+        "accepted_correct": 16949,
+        "accepted_accuracy": 85.0,
+        "review": 1102,
+        "review_correct": 520,
+        "blank": 0,
+        "model_ms": 303.9,
+        "filter_ms": 0.0,
+        "total_ms": 303.9,
+        "fixed": 0,
+        "broken": 0,
+        "change_pts": 0.0
+      },
+      "ptq": {
+        "images": 21042,
+        "correct": 16748,
+        "wrong": 4294,
+        "accuracy": 79.59,
+        "accepted": 18528,
+        "accepted_correct": 15667,
+        "accepted_accuracy": 84.56,
+        "review": 2513,
+        "review_correct": 1081,
+        "blank": 1,
+        "model_ms": 19.6,
+        "filter_ms": 0.0,
+        "total_ms": 19.6,
+        "fixed": 0,
+        "broken": 0,
+        "change_pts": 0.0
+      }
+    },
+    "contrast": {
+      "fp32": {
+        "images": 21042,
+        "correct": 17294,
+        "wrong": 3748,
+        "accuracy": 82.19,
+        "accepted": 19889,
+        "accepted_correct": 16783,
+        "accepted_accuracy": 84.38,
+        "review": 1148,
+        "review_correct": 511,
+        "blank": 5,
+        "model_ms": 290.2,
+        "filter_ms": 0.32,
+        "total_ms": 290.5,
+        "fixed": 646,
+        "broken": 821,
+        "change_pts": -0.83
+      },
+      "ptq": {
+        "images": 21042,
+        "correct": 16498,
+        "wrong": 4544,
+        "accuracy": 78.41,
+        "accepted": 17879,
+        "accepted_correct": 15231,
+        "accepted_accuracy": 85.19,
+        "review": 3155,
+        "review_correct": 1267,
+        "blank": 8,
+        "model_ms": 18.7,
+        "filter_ms": 0.32,
+        "total_ms": 19.0,
+        "fixed": 933,
+        "broken": 1183,
+        "change_pts": -1.19
+      }
+    },
+    "sobel": {
+      "fp32": {
+        "images": 21042,
+        "correct": 15018,
+        "wrong": 6024,
+        "accuracy": 71.37,
+        "accepted": 17105,
+        "accepted_correct": 14104,
+        "accepted_accuracy": 82.46,
+        "review": 3903,
+        "review_correct": 914,
+        "blank": 34,
+        "model_ms": 290.3,
+        "filter_ms": 0.1,
+        "total_ms": 290.4,
+        "fixed": 718,
+        "broken": 3169,
+        "change_pts": -11.65
+      },
+      "ptq": {
+        "images": 21042,
+        "correct": 13389,
+        "wrong": 7653,
+        "accuracy": 63.63,
+        "accepted": 14220,
+        "accepted_correct": 11996,
+        "accepted_accuracy": 84.36,
+        "review": 6777,
+        "review_correct": 1393,
+        "blank": 45,
+        "model_ms": 18.7,
+        "filter_ms": 0.1,
+        "total_ms": 18.8,
+        "fixed": 681,
+        "broken": 4040,
+        "change_pts": -15.96
+      }
+    }
+  }
+}

@@ -15,8 +15,7 @@ deploy/ptq_int8/
 ```
 
 ## Model
-- **Version:** v3 (latest retrain, 2026-07-24; requantized 2026-07-25). Previous
-  v2 build backed up in `deploy/ptq_int8_OLD_backup_2026-07-15/`.
+- **Version:** v3 (latest retrain, 2026-07-24; requantized 2026-07-25).
 - **Architecture:** PP-OCRv5 server recognizer, fine-tuned on meter serials, INT8 (PTQ)
 - **Size:** 22 MB · **Input:** `[N,3,48,W]` BGR crop · **Output:** serial string + confidence
 - **Accuracy:** ~85% on unseen out-of-distribution utilities; ~95% on in-domain data
