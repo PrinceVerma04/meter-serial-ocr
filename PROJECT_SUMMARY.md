@@ -20,6 +20,7 @@ model that runs on CPU without Paddle.
 | v1 | 2026-07-07 | stock | 1,144 TPWODL (773/175/196) | held-out 85.20% → **87.76%** | deleted |
 | v2 | 2026-07-13 | stock | 6,709 (4,643/1,098/968) | val 0.874 → **0.9107**; FP32 94.7% / QAT 92.8% / PTQ 85.3% on 414 readable | deleted |
 | **v3** | 2026-07-24 (PTQ 07-25) | stock | **6,733** (4,793/916/1,024) — `datasets/v3_train` | PTQ **93.14%** on the 18,544-image consensus set | **deployed (PTQ INT8)** |
+| v4-aug | 2026-08-19 | stock | 12,886 (9,123/1,840/1,923) — `datasets/v4_aug_train` | val **94.08%** (epoch 10); never scored against v3 | experiment, shelved |
 | **v4** | 2026-11-02 | **v3** | **23,707** (18,402/2,601/2,704) — `datasets/v4_train` | old test 87.2% → **90.0%**, hard images 11.7% → **90.6%** (PTQ vs PTQ) | candidate |
 
 Where everything is: models `models/`, data `datasets/` (with `datasets/README.md` = which
@@ -54,6 +55,20 @@ version used which data and where every label came from), results `results/`.
   v3 PTQ scored **93.14%** exact match on the 18,544-image corrected consensus set.
 - Deployed: `deploy/ptq_int8/` and `deploy/meterocr_ptq_py38_v3.zip` (Python 3.8 Flask server,
   systemd, port 8080).
+
+### v4-aug — August experiment (17–19 August), never evaluated
+- Separate attempt made on the old machine, before today's v4; kept so nothing is lost, named
+  **v4-aug** to keep it apart from the 2 November v4.
+- **Data** (`datasets/v4_aug_train`, 12,886): v3's 6,733 (same serials, but **re-split** — 2,906 moved
+  split) + **6,153 TPDDL "1st–4th July 2026" crops**, hand-reviewed 17–19 Aug on local review tools and
+  kept where three ONNX models agreed with the bot's serial. 270 discarded; 655 never finished review
+  and 728 TPCODL Aug labels were deleted before merging (both lost).
+- **Training:** from **stock** weights (not v3), same recipe as v3 (`training/rec_v4_aug.yml`, LR 2e-5,
+  20 epochs), RTX 5080. Best val acc **94.08% at epoch 10**. PTQ INT8 made with the v3 recipe → 21.4 MB.
+- **Never scored against v3 and never deployed.** Its val/test sets mix in re-split v3 images, so its
+  94.08% is not comparable with v3/v4 numbers. Files: `models/v4_aug/`, log `training/logs/v4_aug_train.log`.
+- Its original ledger (`TRAINING_LOG.md`) and TPDDL/TPCODL review scripts are on GitHub in branch
+  `backup/github-main-2026-11-02` (tag `backup-github-main-2026-11-02`).
 
 ### Clean test set and review (27–30 October)
 - **Clean test set** (`datasets/test/clean_test_oct27`): 21,042 sharp crops where EasyOCR read the
@@ -100,6 +115,7 @@ ones because v3 misread them, so `test_old` is the neutral comparison (v4 PTQ +2
 |---|---|---|
 | `datasets/v3_train/` | 6,733 | v3 training data (exact labels + split) |
 | `datasets/v4_train/` | 23,707 | v4 training data (exact labels + split + label source) |
+| `datasets/v4_aug_train/` | 12,886 | v4-aug (August) training data; its 6,153 TPDDL July images are in no other set |
 | `datasets/v1_v2_labels/` | labels only | 8,434-row label bank used by v1/v2 |
 | `datasets/test/clean_test_oct27/` | 21,042 | department serial + human review; 16,974 later used to train v4 |
 | `datasets/test/final_test/` | 26,787 | labelled test set (3,014 also in v3/v4 training) |
@@ -142,6 +158,8 @@ ones because v3 misread them, so `test_old` is the neutral comparison (v4 PTQ +2
 
 ## 7. Open items
 - Decide on deploying v4 PTQ; look first at its 74 confidently-wrong reads on `test_old`.
-- Test v4 on sets it never saw beyond its own test split: `datasets/test/tpddl/`, `tpcodl_human_verified/`.
+- Test v4 on sets it never saw beyond its own test split: `datasets/test/tpddl/`, `tpcodl_human_verified/`,
+  and the 6,153 TPDDL July images in `datasets/v4_aug_train/` (unseen by v3 and v4; easy-biased labels).
+- v4-aug: score it against v3/v4 or drop it — it has never been tested.
 - The training/quantization envs (Paddle 3.3.1 GPU and Paddle 3.0.0) and the PaddleOCR repo live
   outside this project, in `/home/coral/Desktop/Prince/Prince number detection in meter/` — keep that folder.

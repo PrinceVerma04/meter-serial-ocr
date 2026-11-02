@@ -176,3 +176,19 @@ reproduces the saved 27-Oct summary exactly; both pipelines run from the new pat
 | `MODELS/README.md` | replaced by `models/README.md` |
 | `v3_training_data_6733.zip` | same content as `datasets/v3_train/` |
 | `__pycache__/`, LibreOffice lock file | junk |
+
+## 2026-11-02 (later) — August v4 brought in, GitHub backup
+- GitHub `main` had a commit this machine didn't (`55bb9eb4`, 19 Aug: an earlier "v4" trained from stock on
+  12,886 images, `TRAINING_LOG.md`, TPDDL/TPCODL review scripts). Saved before pushing as branch
+  `backup/github-main-2026-11-02` and tag `backup-github-main-2026-11-02`; also kept in `main`'s history
+  (merged with this layout's files winning).
+- That model is named **v4-aug** here. Copied from the old copy (md5-verified, originals untouched):
+
+| From (`/home/coral/Desktop/Prince/Prince number detection in meter/`) | To |
+|---|---|
+| `finetune/inference_v4/` | `models/v4_aug/meterocr_v4aug_fp32_paddle/` |
+| `size_reduction/models/meterocr_v4_fp32.onnx`, `meterocr_v4_int8_ptq.onnx` | `models/v4_aug/meterocr_v4aug_fp32.onnx`, `meterocr_v4aug_int8_ptq.onnx` |
+| `finetune/output_retrain_v4/best_accuracy.pdparams` | `models/v4_aug/meterocr_v4aug_train_weights.pdparams` |
+| `finetune/rec_retrain_v4.yml`, `output_retrain_v4/train.log` | `training/rec_v4_aug.yml`, `training/logs/v4_aug_train.log` |
+| `retraining dataset with label/` (12,886 images + `ground_truth.csv`) | `datasets/v4_aug_train/` (`images/`, `original_ground_truth.csv`, new `labels.csv` from `finetune/dataset_retrain/*.txt`) |
+

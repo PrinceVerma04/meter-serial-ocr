@@ -20,18 +20,22 @@ Reads with confidence ≥ 0.95 are **accepted** automatically; the rest go to **
 | v2 | 6,709 labels | — | — | — | replaced |
 | **v3** | 6,733 labels (`datasets/v3_train`) | PTQ 87.21% | PTQ 91.01% | PTQ 11.70% | **deployed** |
 | **v4** | 23,707 labels (`datasets/v4_train`), started from v3 | PTQ 90.04% | PTQ 98.81% | PTQ 90.64% | candidate |
+| v4-aug | 12,886 labels (`datasets/v4_aug_train`), from stock, 19 Aug | — | — | — | experiment, never tested |
 
 PTQ INT8 numbers, exact match, deploy pipeline (`results/2026-11-02_v4/`). History and caveats:
 **`PROJECT_SUMMARY.md`**.
+**v4-aug** is an earlier, separate attempt from 19 August (v3 data + 6,153 TPDDL July images, trained
+from stock weights, val 94.08%); it was never scored against v3. "v4" everywhere else means the
+2 November model.
 
 ## Layout
 ```
 .
 ├── README.md · PROJECT_SUMMARY.md · CLEANUP_LOG.md
 ├── datasets/        training data per version + test sets, each images/ + labels.csv  (README inside)
-├── models/          base/ · v3/ · v4/  — FP32 Paddle, FP32 ONNX, INT8 PTQ ONNX, training weights (README inside)
+├── models/          base/ · v3/ · v4/ · v4_aug/  — FP32 Paddle, FP32 ONNX, INT8 PTQ ONNX, training weights (README inside)
 ├── deploy/          ptq_int8/ (v3 in production) · meterocr_ptq_py38_v3.zip (Python 3.8 server)
-├── training/        train_v4.py (one auto-resuming command) · rec_v3.yml · rec_v4.yml · logs/
+├── training/        train_v4.py (one auto-resuming command) · rec_v3.yml · rec_v4.yml · rec_v4_aug.yml · logs/
 ├── quantization/    quantize_v4_ptq.py (export → ONNX → INT8 → scoring) · quantize_v3_ptq.py · compat_env/
 ├── results/         2026-10-27_v3_clean_test/ · 2026-11-02_v4/
 ├── scripts/         infer · extract_serials · run_ptq_folder · compare_fp32_ptq · score_vs_department
