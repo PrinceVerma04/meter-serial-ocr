@@ -30,7 +30,7 @@ from paddleocr import PaddleOCR
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 
-DATA_DIR = "data/serialno_dev"    # default dataset (override with --data)
+DATA_DIR = "datasets/test/tpddl/images"    # default dataset (override with --data)
 OUT_CSV = "results/serials.csv"
 MIN_LEN = 5            # shortest plausible serial
 # Printed labels/words on the nameplate that are NOT part of the serial.
@@ -59,7 +59,7 @@ _mode = "recog"
 # Fine-tuned recognizer (trained on our labels; +2.5pp on held-out test, fixes
 # faint-prefix errors). Used automatically in recog mode if present, unless
 # --base-model is passed. Falls back to the stock server recognizer otherwise.
-FINETUNED_REC = os.path.join(ROOT, "finetune", "inference")
+FINETUNED_REC = os.path.join(ROOT, "models", "v3", "meterocr_v3_fp32_paddle")
 
 
 def build_engine(mode, use_finetuned=True):
@@ -69,7 +69,8 @@ def build_engine(mode, use_finetuned=True):
         from paddleocr import TextRecognition
         if use_finetuned and os.path.isdir(FINETUNED_REC):
             print(f"Paddle RECOGNITION-ONLY (FINE-TUNED) on {'GPU' if _ON_GPU else 'CPU'}")
-            _engine = TextRecognition(model_dir=FINETUNED_REC, **_device_kw)
+            _engine = TextRecognition(model_name="PP-OCRv5_server_rec",
+                                      model_dir=FINETUNED_REC, **_device_kw)
         else:
             print(f"Paddle RECOGNITION-ONLY (stock) on {'GPU' if _ON_GPU else 'CPU'}")
             _engine = TextRecognition(model_name="PP-OCRv5_server_rec", **_device_kw)

@@ -1,0 +1,33 @@
+Filter test on the clean set: 21,042 images
+Ground truth: aug_departgiven (clean_test_labels.xlsx). Correct = exact match.
+Raw reads: 27 Oct run (fp32_vs_ptq_results.csv). Filtered reads: this run.
+
+1) Accuracy
+   Input                   Model                 Correct  Accuracy    vs raw   Fixed  Broken
+   Raw crop (no filter)    v3 FP32                17,469    83.02%         -       -       -
+   Raw crop (no filter)    v3 PTQ (deployed)      16,748    79.59%         -       -       -
+   Contrast boosted        v3 FP32                17,294    82.19%     -0.83     646     821
+   Contrast boosted        v3 PTQ (deployed)      16,498    78.41%     -1.19     933   1,183
+   Edge strength (Sobel)   v3 FP32                15,018    71.37%    -11.65     718   3,169
+   Edge strength (Sobel)   v3 PTQ (deployed)      13,389    63.63%    -15.96     681   4,040
+   Fixed = raw read wrong, filtered read right. Broken = raw read right, filtered read wrong.
+
+2) Confidence status (accepted = confidence >= 0.95)
+   Input                   Model                Accepted Acc. right  Acc. %  Review  Blank
+   Raw crop (no filter)    v3 FP32                19,940     16,949   85.0%   1,102      0
+   Raw crop (no filter)    v3 PTQ (deployed)      18,528     15,667   84.6%   2,513      1
+   Contrast boosted        v3 FP32                19,889     16,783   84.4%   1,148      5
+   Contrast boosted        v3 PTQ (deployed)      17,879     15,231   85.2%   3,155      8
+   Edge strength (Sobel)   v3 FP32                17,105     14,104   82.5%   3,903     34
+   Edge strength (Sobel)   v3 PTQ (deployed)      14,220     11,996   84.4%   6,777     45
+
+3) Time per image (ms, averages)
+   Input                   Model                 Filter   Model   Total
+   Raw crop (no filter)    v3 FP32                 0.00   303.9   303.9
+   Raw crop (no filter)    v3 PTQ (deployed)       0.00    19.6    19.6
+   Contrast boosted        v3 FP32                 0.32   290.2   290.5
+   Contrast boosted        v3 PTQ (deployed)       0.32    18.7    19.0
+   Edge strength (Sobel)   v3 FP32                 0.10   290.3   290.4
+   Edge strength (Sobel)   v3 PTQ (deployed)       0.10    18.7    18.8
+   Model times are measured inside parallel worker processes (1 thread each),
+   the same way as the raw run, so they compare when both use the same --workers.

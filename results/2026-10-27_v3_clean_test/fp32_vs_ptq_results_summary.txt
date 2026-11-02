@@ -1,0 +1,20 @@
+Images: 21042
+
+Baseline  v3 FP32 (Paddle)
+  accepted (conf >= 0.95) :  19940  ( 94.8%)
+  review   (conf <  0.95) :   1102  (  5.2%)
+  blank    (no read)      :      0  (  0.0%)
+  avg time per image      : 303.9 ms
+
+Deployed  v3 PTQ INT8 (ONNX)
+  accepted (conf >= 0.95) :  18528  ( 88.1%)
+  review   (conf <  0.95) :   2513  ( 11.9%)
+  blank    (no read)      :      1  (  0.0%)
+  avg time per image      : 19.6 ms
+
+Agreement (same serial from both models)
+  all images              :  18803  ( 89.4%)
+  both accepted           : 17946  -> same serial in 17153
+
+No ground truth was used: these numbers show what each model reads and how
+confident it is, not accuracy. Times are measured inside parallel workers.
