@@ -43,7 +43,7 @@ built into `datasets/v4_retrain_nov4/` by `scripts/build_v4_retrain_data.py`, an
   meters are split 80/10/10 by meter (seed 0);
 - rows already here whose reviewed serial differs get the reviewed serial, the old one stays in `v4_serial`;
 - `labels_v4.csv` = this file exactly as v4 was trained on it (kept once, before the merge).
-v4.2 (`training/train_v4_2.py`) trains on every row; v4 used every row except `nov4_reviewed`
+v4.2 (`training/train_v4_2.py`, dropped 2026-11-05) trained on every row; v4 used every row except `nov4_reviewed`
 (with the `v4_serial` values).
 
 ### `v1_v2_labels/ground_truth.csv`
@@ -55,7 +55,7 @@ The original label bank: `image, true_label, verdict, tier` — 8,434 rows
 
 | Folder | Images | In v3 training | In v4 training | Ground truth (`labels.csv`) |
 |---|---|---|---|---|
-| `clean_test_oct27/` | 21,042 | 0 | **16,974** | department serial + human review (below) |
+| `clean_test_oct27/` | 20,970 (21,042 until 2026-11-05) | 0 | **16,974** | department serial + human review (below) |
 | `final_test/` | 26,787 | 3,014 | 3,014 | `serial` (639 blank); `in_v3_training` flag |
 | `tpddl/` | 3,460 | 0 | 0 | `true_label` + `verdict` (correct 2,862, fixed 138, unreadable 460) — second utility |
 | `tpcodl_human_verified/` | 712 | 0 | 0 | human-verified TPCODL serials (Aug 2026 review) |
@@ -69,10 +69,10 @@ of them were misread by the department's old OCR. `labels.csv` columns:
 |---|---|
 | `ground_truth` | best label: the human serial where reviewed, else the department serial, empty if unreadable |
 | `department_serial` | `aug_departgiven` from the department |
-| `human_review` | `not_reviewed` 16,298 · `confirmed` 1,771 · `corrected` 36 · `unreadable` 2,937 |
+| `human_review` | `not_reviewed` 16,292 · `confirmed` 1,771 · `corrected` 36 · `unreadable` 2,871 (2,937 before 66 were deleted 2026-11-05) |
 | `human_serial`, `reviewer` | what the reviewer saved (4,744 reviewed = every image v3 FP32 or PTQ got wrong) |
 | `old_system_read` | `aug_extracted_serial`, the department's old OCR (wrong on every row by construction) |
-| `used_in_v4_training` | `train` 13,609 · `val` 1,685 · `test` 1,680 · `no` 4,068 |
+| `used_in_v4_training` | `train` 13,609 · `val` 1,685 · `test` 1,680 · `no` 3,996 |
 
 Also here: `manual_review_4744.xlsx` (the raw review log: who, when, edits) and
 `original_labels_with_quality.xlsx` (the build file with sharpness / contrast / glare columns).

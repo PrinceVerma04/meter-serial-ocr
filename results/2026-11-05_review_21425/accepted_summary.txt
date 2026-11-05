@@ -1,0 +1,23 @@
+Auto-accept summary - new testing data 4 nov/5 nov testing data/review
+made 2026-11-05 13:17 from results/2026-11-05_review_21425/model_reads.xlsx
+accepted = model read with confidence >= 0.95 (goes out without a human check); review = read below the gate; blank = nothing read.
+Accepted is NOT the same as correct - no ground truth is used here.
+
+all images (none of them is in v4's training data): 21425 images
+  model                           accepted            review           blank
+  v3 FP32                  15305 ( 71.44%)    6120 ( 28.56%)     0 (  0.00%)
+  v3 PTQ (deployed)        12282 ( 57.33%)    9138 ( 42.65%)     5 (  0.02%)
+  v4 FP32                  17648 ( 82.37%)    3777 ( 17.63%)     0 (  0.00%)
+  v4 PTQ (candidate)       17126 ( 79.93%)    4299 ( 20.07%)     0 (  0.00%)
+
+How the models overlap (all images):
+  accepted by all 4 models   9076 ( 42.36%)
+  accepted by no model       1308 (  6.11%)
+    of the 'all 4': same serial from every model 5327, different serials 3749
+
+Deployed (v3 PTQ) vs candidate (v4 PTQ):
+  accepted by both          10925   (same serial 6558, different serial 4367)
+  only v3 PTQ accepts        1357
+  only v4 PTQ accepts        6201
+  neither accepts            2942
+  total                     21425

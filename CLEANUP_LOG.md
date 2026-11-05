@@ -204,3 +204,38 @@ reproduces the saved 27-Oct summary exactly; both pipelines run from the new pat
 - Originals still exist in the old copy `/home/coral/Desktop/Prince/Prince number detection in meter/`
   (`finetune/inference_v4/`, `finetune/output_retrain_v4/`, `size_reduction/models/meterocr_v4_*.onnx`,
   `retraining dataset with label/`) and on GitHub branch `backup/github-main-2026-11-02`.
+
+## 2026-11-05 — v4.2 dropped, v4 kept
+- v4 retrained on the reviewed 4-Nov clean crops (v4.2) scored about the same as v4 after INT8
+  (8,663 vs 8,674 right of 8,931; more reviews; 28 vs 21 MB) — see `results/2026-11-05_v4.2/`.
+  On request, v4 is kept and v4.2 removed:
+  - deleted `models/v4.2/` (FP32 Paddle, FP32 ONNX, INT8 PTQ ONNX, training weights; 393 MB) and
+    `training/output_v4.2/` (checkpoints, generated lists; 1.9 GB);
+  - earlier the same day: `models/v4.2_try1/` (286 MB) and `training/output_v4.2_try1/` (1.9 GB).
+  - kept as the record: `training/train_v4_2.py`, `rec_v4.2.yml`, `rec_v4.2_try1.yml`, both logs,
+    `quantization/quantize_v4_2_ptq.py`, `results/2026-11-05_v4.2/` (incl. `eval_v3_v4_v4.2.txt` moved
+    from the deleted output folder, and the first all-INT8 scores in `first_ptq_all_int8/`).
+  - the 727 reviewed crops stay in `datasets/v4_train` (`nov4_reviewed`); `labels_v4.csv` = v4's own labels.
+  - v4.2 removed from `dashboard/app.py`, `scripts/run_ptq_folder.py`, `scripts/step1_run_all_models.py`.
+
+## 2026-11-05 — 72 crops deleted from `datasets/test/clean_test_oct27` (66 unreadable + 6 with ground truth)
+- Deleted on request (they had been removed from the 5-Nov review set as bad crops):
+  `cmnTh-SdTpOvvYSQ3uHj0H_null_bigImg_1786676193`, `c17yKQclR3qWTBTUp5rgCQ_null_bigImg_1787199935`,
+  `cWg_bAz4SCCMyRC1-ZR2SS_null_bigImg_1786257188`, `fyeCfg4tSQyujSBFSw_wun_null_bigImg_1785836867`,
+  `eljmWbM9QbiP4DYW-bwgPC_null_bigImg_1786441285`, `fEJatVOeQx-R1JDKd7ybfq_null_bigImg_1786350755` (.jpg).
+- All 6 were `human_review = unreadable`, no `ground_truth`, not used in v4 training — so every
+  ground-truth accuracy is unchanged. Test set 21,042 → 21,036 images / `labels.csv` rows.
+- 12 more of the same kind (unreadable, no ground truth, not in v4 training) deleted the same day, after
+  they were removed from the review set: `c46A9U5mS2uvf9ESRO8hSW_null_bigImg_1785672564`, `cHrKlfL2ThaJ4AsvlpAT1d_null_bigImg_1786359734`, `cXt4HGvhSZOnHXBwsMokAt_null_bigImg_1786429582`, `d18WFldPTp2heHl7dlWCx3_null_bigImg_1786591860`, `dD7FobVSQ7-fTT-VRxxzaS_null_bigImg_1787813566`, `dPKF6PG5RMaFVLdaAwuK4Y_null_bigImg_1786089256`, `dZrsZzNOT86ArV440bPcf9_null_bigImg_1786358708`, `dhLpQgVXTaWOKr-JBOLoyF_null_bigImg_1785994415`, `dz0rD3ffQqe0s30dLFPGTe_null_bigImg_1787197649`, `eAULxvUzTvaGMO-MdmQHE__null_bigImg_1786957113`, `fhEDTEQmTZK8RfCOlPh6pm_null_bigImg_1786858110`, `fmVo5kS4Qkike90iadsJjD_null_bigImg_1787392308`.
+  Test set then 21,024.
+- 6 more deleted the same day on request, after removal from the review set — these DID have
+  `ground_truth` (`not_reviewed`, department serial), so ground-truth accuracy changes slightly:
+  `c6ukaWHwRlSquhSOosis2Z_null_bigImg_1787722165`, `dgVyHZthTBGh9E5NmnwzkV_null_bigImg_1786853608`, `dsw5H54cR86KEmsXLZyWG2_null_bigImg_1786079663`, `fJMNoVlRRCCZaRWlghHXLI_null_bigImg_1785735985`, `fhoR8JwQRJ6oZ08p8T9Cen_null_bigImg_1785737854`, `fzv5Zoh-Q9Snk-z1VcF4KZ_null_bigImg_1785925329`.
+  Test set then 21,018 (18,099 with ground truth, was 18,105). Published accuracy numbers were
+  measured on the full 21,042 / 18,105.
+- 48 more unreadable crops (no ground truth, not in v4 training) deleted the same day after removal
+  from the review set — ground-truth accuracy unchanged. Test set now **20,970** (18,099 with ground truth):
+  `cAs4bdUBRneKtJ0gIZJq4c_null_bigImg_1786689808`, `cDDWNlgzoSbX6CDtA0pvkt_null_bigImg_1786959776`, `cKnMr2ciQsGnd1PrxcglZ5_null_bigImg_1786176298`, `cM-frDj1QYSySEsdbvAgVO_null_bigImg_1785740381`, `cNRon13bT5yDRQ-wAZcedF_null_bigImg_1786687853`, `cX4iMGg3R62rEBnOjde0RO_null_bigImg_1785825711`, `cXt4HGvhSZOnHXBwsMokAt_null_bigImg_1787304609`, `cZrdgZyxTLyZ2LUZx5GPOR_null_bigImg_1786853932`, `caKzR4WjTXu2rBpPo2IXPS_null_bigImg_1785752451`, `caKzR4WjTXu2rBpPo2IXPS_null_bigImg_1787994865`, `ccsaHaavRpaAcrNrfSMW66_null_bigImg_1786352421`, `cdlFzMleTr2yfv_5_XR5Mv_null_bigImg_1786082563`, `cmnTh-SdTpOvvYSQ3uHj0H_null_bigImg_1787546213`, `crSM58HsR62zBrjiTUi1g__null_bigImg_1787465827`, `cviNkxPtSjarTe0_maehlo_null_bigImg_1787556910`, `cwxd78jbSDCESLS4ZRG5T1_null_bigImg_1788004488`, `cxSHKHW1QXWIzCDOSFnqpd_null_bigImg_1787122178`, `cz0IG2KqQY2MeeEGFhixqh_null_bigImg_1786963801`, `d76Z-3t4Sea9SeSS9BVPDt_null_bigImg_1786530042`, `dAYhJar9R3-0jRhhzT2OkT_null_bigImg_1786526823`, `dAYhJar9R3-0jRhhzT2OkT_null_bigImg_1787055608`, `dAYhJar9R3-0jRhhzT2OkT_null_bigImg_1787573620`, `dAYhJar9R3-0jRhhzT2OkT_null_bigImg_1787724954`, `dCBqJk7xRhelZFUJ5AX_to_null_bigImg_1786253335`, `dHWZctdYQ9mrtJ2PmkMTGj_null_bigImg_1785650507`, `dZ5RFGhjRHGM_P2Ok3s1Ve_null_bigImg_1786253275`, `dZ5RFGhjRHGM_P2Ok3s1Ve_null_bigImg_1787717484`, `dsw5H54cR86KEmsXLZyWG2_null_bigImg_1786434510`, `dutcZOYiQWG4gk_WHpWFFt_null_bigImg_1786620817`, `e6LaNpOhSEalcQFXCTDkfi_null_bigImg_1786620350`, `e8RSvoPrQcqhtTe_YLZqhu_null_bigImg_1786856596`, `eDLl7lDJR2iLCWtCwrj9n__null_bigImg_1787994539`, `eHxb1ntQSQ-4L6xgM44OS8_null_bigImg_1787037506`, `eMH8oEa1RCC3AbpwLJP8F4_null_bigImg_1786970348`, `eUMtAQLzTbym1wL5upjpQl_null_bigImg_1785907546`, `ecV3U6s2Q3q4CN3WK_MPlo_null_bigImg_1787726636`, `edpS406ARhKcudNIvJcsz2_null_bigImg_1786168086`, `eh4lkKbjRguXRfZbhMkv9w_null_bigImg_1785730239`, `eiapQ1KKTCawcH3W6GpD7e_null_bigImg_1788168711`, `ekaEQZUpRQaNzchhaZqsXu_null_bigImg_1788159748`, `f-ZiOYeLSgu8BHromys9W6_null_bigImg_1786862796`, `fOVIQb-QS9OGtDyeyTv3B5_null_bigImg_1787305887`, `fTM2vgacShWerSonc7WB-e_null_bigImg_1787979121`, `fXs-QpMORBKxpOA8uBxEkW_null_bigImg_1787738486`, `fZNJA7hXTUqFRD6oHzkM63_null_bigImg_1787131874`, `fhoR8JwQRJ6oZ08p8T9Cen_null_bigImg_1785993554`, `fvqYrwypToKG2_bQYU4kCu_null_bigImg_1787728302`, `fySVgxpASs--74uUA9WJM2_null_bigImg_1787212828`.
+- Older results (`results/2026-10-27_v3_clean_test/*.csv`) and the review records
+  (`manual_review_4744.xlsx`, `original_labels_with_quality.xlsx`) still list them, as history.
+

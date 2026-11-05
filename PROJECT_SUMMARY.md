@@ -21,7 +21,7 @@ model that runs on CPU without Paddle.
 | v2 | 2026-07-13 | stock | 6,709 (4,643/1,098/968) | val 0.874 → **0.9107**; FP32 94.7% / QAT 92.8% / PTQ 85.3% on 414 readable | deleted |
 | **v3** | 2026-07-24 (PTQ 07-25) | stock | **6,733** (4,793/916/1,024) — `datasets/v3_train` | PTQ **93.14%** on the 18,544-image consensus set | **deployed (PTQ INT8)** |
 | **v4** | 2026-11-02 | **v3** | **23,707** (18,402/2,601/2,704) — `datasets/v4_train` | old test 87.2% → **90.0%**, hard images 11.7% → **90.6%** (PTQ vs PTQ) | candidate |
-| **v4.2** | 2026-11-05 | **v3** | **24,434** (19,008/2,648/2,778) — `datasets/v4_train` incl. 727 `nov4_reviewed` | FP32 vs v4 FP32: old test 90.82 → **91.31%**, hard 91.81 → **92.40%**, new 98.99 → 98.81% | FP32 done, PTQ not yet |
+| **v4.2** | 2026-11-05 | **v3** | **24,434** (19,008/2,648/2,778) — `datasets/v4_train` incl. 727 `nov4_reviewed` | PTQ ≈ v4 PTQ (8,663 vs 8,674 right of 8,931; more reviews) | **dropped 2026-11-05**, model deleted |
 
 Where everything is: models `models/`, data `datasets/` (with `datasets/README.md` = which
 version used which data and where every label came from), results `results/`.
@@ -104,10 +104,11 @@ ones because v3 misread them, so `test_old` is the neutral comparison (v4 PTQ +2
   applied by `scripts/apply_review_2026_11_04.py` + `build_v4_retrain_data.py`; 727 crops merged into
   `datasets/v4_train` with `label_source = nov4_reviewed` (train 606 / val 47 / test 74, split by meter).
 - **Try 1** (4 Nov): fine-tuned from v4, 8 epochs → best val at epoch 1, then drifted; slightly worse than v4
-  on every test set. Kept locally as `models/v4.2_try1/`.
+  on every test set (v4 → try 1: test_old 90.82 → 90.43%, test_new 98.99 → 98.33%, hard 91.81 → 90.06%,
+  test_nov4 98.65 → 97.30%). Model deleted 2026-11-05; config + log kept in `training/`.
 - **v4.2** (5 Nov, `training/train_v4_2.py`): the v4 recipe — start from v3, 20 epochs, batch 128,
   LR 4e-5, new train crops ×3. Best val **96.00% at epoch 10**, ~25 min on the RTX 5080.
-  FP32, training-eval pipeline (`training/output_v4.2/eval_v3_v4_v4.2.txt`):
+  FP32, training-eval pipeline (`results/2026-11-05_v4.2/eval_v3_v4_v4.2.txt`):
 
 | test set | v3 | v4 | v4.2 |
 |---|---|---|---|
@@ -116,7 +117,23 @@ ones because v3 misread them, so `test_old` is the neutral comparison (v4 PTQ +2
 | test_new_hard (171) | 35.09% | 91.81% | **92.40%** |
 | test_nov4 (74, new 4-Nov crops) | 98.65% | 98.65% | **100.00%** |
 
-- Not yet: PTQ INT8 + deploy-pipeline scoring (`quantization/quantize_v4_2_ptq.py`).
+- **PTQ** (`quantization/quantize_v4_2_ptq.py`): the v3/v4 recipe added an extra last character on
+  v4.2 (TPDDL July 94.99%, 237 wrong auto-accepts). A recipe search scored 5 variants on the validation
+  split; chosen: CTC head (120 × 18,385) + attention MatMuls kept FP32, percentile 99.999 calibration on
+  1,000 crops (28 MB; same read as FP32 96.2% → 98.2%). onnxruntime 1.23's `CalibMaxIntermediateOutputs`
+  drops data, so calibration runs in chunks of 50 through a patched `collect_data`.
+- **Deploy pipeline, all 8,931 test images** (`results/2026-11-05_v4.2/`):
+
+| all 8,931 test images (old + new + 4-Nov + TPDDL July) | v3 INT8 (deployed) | **v4 INT8** | retrained INT8 (v4.2) |
+|---|---|---|---|
+| right | 8,185 | **8,674** | 8,663 |
+| wrong but auto-accepted (≥ 0.95) | 410 | 200 | 179 |
+| sent to review | 674 | **247** | 426 |
+| size / CPU time per crop | 21.4 MB / 28 ms | **21.4 MB / 28 ms** | 28.0 MB / 29 ms |
+
+- **Decision (5 Nov): keep v4, delete v4.2.** Its fewer wrong auto-accepts come from lower confidence
+  only: at equal review workload v4 INT8 is as good or better. Models and checkpoints deleted; the 727
+  reviewed crops stay in `datasets/v4_train` (`nov4_reviewed`) for future training.
 
 ## 3. Data (summary — full detail in `datasets/README.md`)
 
@@ -166,8 +183,6 @@ ones because v3 misread them, so `test_old` is the neutral comparison (v4 PTQ +2
 ---
 
 ## 7. Open items
-- v4.2: run `quantization/quantize_v4_2_ptq.py` (PTQ INT8 + deploy-pipeline scores), then decide v4 vs v4.2;
-  remove old v4 only with `--remove-old-v4` after that.
 - Decide on deploying v4 PTQ; look first at its 74 confidently-wrong reads on `test_old`.
 - Test v4 on sets it never saw beyond its own test split: `datasets/test/tpddl/`, `tpcodl_human_verified/`,
   and `datasets/test/tpddl_july_2026/` (6,153, unseen by v3 and v4; easy-biased labels).
