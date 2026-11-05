@@ -12,12 +12,18 @@
 datasets/**
 !datasets/**/
 !datasets/README.md
+!datasets/*.py
 !datasets/**/labels.csv
 !datasets/v1_v2_labels/ground_truth.csv
 models/**
 !models/**/
 !models/README.md
 quantization/compat_env/inference_*/
+
+# --- raw test-image folders and pages that embed images (repo is public) ---
+new testing data 4 nov/
+results/2026-11-04_all_models_test/test_dashboard.html
+docs/resume_explained/
 
 # --- training work dirs (checkpoints, generated lists) ---
 training/output_*/

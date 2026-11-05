@@ -13,16 +13,15 @@ models/
 │   ├── meterocr_v3_fp32.onnx           FP32, ONNX (CTC only) — quantization reference
 │   ├── meterocr_v3_int8_ptq.onnx       INT8 PTQ, ONNX — the deployed model (= deploy/ptq_int8/model/)
 │   └── meterocr_v3_train_weights.pdparams   v3 as training weights (rebuilt 2026-11-02, start of v4)
-├── v4/                                                 trained 2026-11-02, not deployed yet
-│   ├── meterocr_v4_fp32_paddle/
-│   ├── meterocr_v4_fp32.onnx
-│   ├── meterocr_v4_int8_ptq.onnx       INT8 PTQ, ONNX — deploy candidate
-│   └── meterocr_v4_train_weights.pdparams   best epoch (16) — start point for a v5 / re-quantization
-└── v4_aug/                                             August experiment (19 Aug), never tested — NOT the v4 above
-    ├── meterocr_v4aug_fp32_paddle/
-    ├── meterocr_v4aug_fp32.onnx
-    ├── meterocr_v4aug_int8_ptq.onnx
-    └── meterocr_v4aug_train_weights.pdparams   best epoch (10)
+└── v4/                                                 trained 2026-11-02, not deployed yet
+    ├── meterocr_v4_fp32_paddle/
+    ├── meterocr_v4_fp32.onnx
+    ├── meterocr_v4_int8_ptq.onnx       INT8 PTQ, ONNX — deploy candidate
+    └── meterocr_v4_train_weights.pdparams   best epoch (16) — start point for a v5 / re-quantization
+├── v4.2/                                               trained 2026-11-05 (v4 recipe + 727 reviewed 4-Nov crops)
+│   ├── meterocr_v4.2_fp32_paddle/
+│   └── meterocr_v4.2_train_weights.pdparams   best epoch (10); ONNX + PTQ come from quantize_v4_2_ptq.py
+└── v4.2_try1/                                          2026-11-04 try fine-tuned from v4 — worse than v4, backup only
 ```
 
 | Version | Date | Started from | Training data | FP32 | PTQ INT8 | Status |
@@ -31,7 +30,7 @@ models/
 | v2 | Jul 2026 | stock | 6,709 | deleted | deleted (QAT too) | replaced |
 | **v3** | 2026-07-24 / PTQ 07-25 | stock | 6,733 `datasets/v3_train` | 81 MB | 21 MB | **deployed** |
 | **v4** | 2026-11-02 | v3 | 23,707 `datasets/v4_train` | 81 MB | 21 MB | candidate |
-| v4-aug | 2026-08-19 | stock | 12,886 `datasets/v4_aug_train` | 81 MB | 21 MB | experiment, never scored (val 94.08%) |
+| **v4.2** | 2026-11-05 | v3 | 24,434 `datasets/v4_train` (+ `nov4_reviewed`) | 81 MB | not yet | FP32 done |
 
 ## Accuracy (exact match, deploy pipeline, 0.95 gate) — `results/2026-11-02_v4/`
 | Test set | v3 FP32 | v3 PTQ (deployed) | v4 FP32 | v4 PTQ |

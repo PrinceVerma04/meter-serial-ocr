@@ -192,3 +192,15 @@ reproduces the saved 27-Oct summary exactly; both pipelines run from the new pat
 | `finetune/rec_retrain_v4.yml`, `output_retrain_v4/train.log` | `training/rec_v4_aug.yml`, `training/logs/v4_aug_train.log` |
 | `retraining dataset with label/` (12,886 images + `ground_truth.csv`) | `datasets/v4_aug_train/` (`images/`, `original_ground_truth.csv`, new `labels.csv` from `finetune/dataset_retrain/*.txt`) |
 
+
+## 2026-11-04 — v4-aug removed
+- On request, the August experiment **v4-aug** was removed from this project: `models/v4_aug/` (FP32 Paddle,
+  FP32 ONNX, INT8 PTQ ONNX, training weights; 387 MB), `training/rec_v4_aug.yml`, `training/logs/v4_aug_train.log`,
+  and its entries in `dashboard/app.py`, `scripts/step1_run_all_models.py`, `step2_check_accuracy.py`,
+  `step3_build_dashboard.py`, the READMEs and `results/2026-11-04_all_models_test/` (columns dropped, report and
+  dashboard rebuilt).
+- `datasets/v4_aug_train/` deleted: its 6,733 v3 images were byte-identical copies of `datasets/v3_train/`
+  (same labels); its 6,153 TPDDL July crops were moved to `datasets/test/tpddl_july_2026/` (`image_name, serial`).
+- Originals still exist in the old copy `/home/coral/Desktop/Prince/Prince number detection in meter/`
+  (`finetune/inference_v4/`, `finetune/output_retrain_v4/`, `size_reduction/models/meterocr_v4_*.onnx`,
+  `retraining dataset with label/`) and on GitHub branch `backup/github-main-2026-11-02`.
