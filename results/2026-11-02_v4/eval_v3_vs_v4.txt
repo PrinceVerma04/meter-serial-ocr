@@ -5,5 +5,5 @@ test_new_hard       171    35.09%    91.81%
 
 test_old      = old v3 test split (74% serials with letters)
 test_new      = new correct images held out (never trained on)
-test_new_hard = part of test_new labelled on the review dashboard (v3 FP32 or PTQ read them wrong)
+test_new_hard = part of test_new re-labelled by human review (v3 FP32 or PTQ read them wrong)
 acc = exact match, fixed 48x320 resize (training-eval pipeline, not the deploy pipeline)

@@ -15,7 +15,7 @@ test_new  (1680 images) - new correct images held out (never trained on)
   v4 FP32                   1663 (98.99%)      1663   1648 (99.10%)      17      0
   v4 PTQ INT8 (new)         1660 (98.81%)      1654   1636 (98.91%)      26      0
 
-test_new_hard  (171 images) - part of test_new labelled on the review dashboard
+test_new_hard  (171 images) - part of test_new re-labelled by human review
   model                            right  accepted      acc. right  review  blank
   v3 FP32                     60 (35.09%)       137     49 (35.77%)      34      0
   v3 PTQ INT8 (deployed)      20 (11.70%)       119     14 (11.76%)      52      0

@@ -5,7 +5,7 @@ This step never opens the ground truth file; it only reads the images.
 
 Models (all ONNX, CPU): v3 FP32, v3 PTQ (deployed), v4 FP32, v4 PTQ (whichever exist).
 All go through the deploy code (deploy/ptq_int8/meterocr.py): same preprocessing, greedy CTC
-decode and confidence as production (and as the dashboard).
+decode and confidence as production.
 
 Input : new testing data 4 nov/clean/            (images only)
 Output: results/2026-11-04_all_models_test/model_reads.xlsx
@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.join(ROOT, "deploy", "ptq_int8"))
 IMAGES = os.path.join(ROOT, "new testing data 4 nov", "clean")
 OUT_DIR = os.path.join(ROOT, "results", "2026-11-04_all_models_test")
 
-# key, file  (same list as dashboard/app.py)
+# key, file
 MODELS = [
     ("v3_fp32", "models/v3/meterocr_v3_fp32.onnx"),
     ("v3_ptq", "models/v3/meterocr_v3_int8_ptq.onnx"),

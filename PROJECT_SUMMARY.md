@@ -21,7 +21,6 @@ model that runs on CPU without Paddle.
 | v2 | 2026-07-13 | stock | 6,709 (4,643/1,098/968) | val 0.874 → **0.9107**; FP32 94.7% / QAT 92.8% / PTQ 85.3% on 414 readable | deleted |
 | **v3** | 2026-07-24 (PTQ 07-25) | stock | **6,733** (4,793/916/1,024) — `datasets/v3_train` | PTQ **93.14%** on the 18,544-image consensus set | **deployed (PTQ INT8)** |
 | **v4** | 2026-11-02 | **v3** | **23,707** (18,402/2,601/2,704) — `datasets/v4_train` | old test 87.2% → **90.0%**, hard images 11.7% → **90.6%** (PTQ vs PTQ) | candidate |
-| **v4.2** | 2026-11-05 | **v3** | **24,434** (19,008/2,648/2,778) — `datasets/v4_train` incl. 727 `nov4_reviewed` | PTQ ≈ v4 PTQ (8,663 vs 8,674 right of 8,931; more reviews) | **dropped 2026-11-05**, model deleted |
 
 Where everything is: models `models/`, data `datasets/` (with `datasets/README.md` = which
 version used which data and where every label came from), results `results/`.
@@ -63,8 +62,8 @@ version used which data and where every label came from), results `results/`.
   FP32 and PTQ gave the same read on 18,803 (89.4%); 793 confident disagreements.
 - **Filter test** (contrast stretch, Sobel): no gain (contrast 82.2% / 78.4%, Sobel 71.4% / 63.6%)
   → keep raw crops; errors come from the model, not image quality.
-- **Manual review** (30 Oct): every image FP32 or PTQ got wrong (4,744) reviewed on a LAN dashboard
-  by Prince Verma (1,756), Sathwik (1,557), Srinath Battu (1,431):
+- **Manual review** (30 Oct): every image FP32 or PTQ got wrong (4,744) reviewed by
+  Prince Verma (1,756), Sathwik (1,557), Srinath Battu (1,431):
   1,771 department serial confirmed, 36 corrected, **2,937 unreadable (62%)**.
   → department serials are ~98% right; most "wrong" reads are images people can't read either.
   On the 18,105 scorable images: **v3 FP32 93.33%, v3 PTQ 91.04%** (accept precision 94.29% / 93.49%).
@@ -95,54 +94,30 @@ ones because v3 misread them, so `test_old` is the neutral comparison (v4 PTQ +2
 
 ---
 
-### v4.2 — v4 recipe + reviewed 4-Nov crops (4–5 November)
-- **Test (4 Nov):** all models on `new testing data 4 nov/clean` (2,409 crops, local only). 1,528 of them
-  turned out to be in v4's training data, so only the 881 unseen ones are a fair test. Scripts
-  `scripts/step1_run_all_models.py` (reads only) → `step2_check_accuracy.py` (scoring) → `step3_build_dashboard.py`;
-  reports in `results/2026-11-04_all_models_test/` (dashboard HTML local only, it embeds the images).
-- **Review:** three rounds on local review pages (`scripts/review_round2_server.py`, `review_round3_server.py`),
-  applied by `scripts/apply_review_2026_11_04.py` + `build_v4_retrain_data.py`; 727 crops merged into
-  `datasets/v4_train` with `label_source = nov4_reviewed` (train 606 / val 47 / test 74, split by meter).
-- **Try 1** (4 Nov): fine-tuned from v4, 8 epochs → best val at epoch 1, then drifted; slightly worse than v4
-  on every test set (v4 → try 1: test_old 90.82 → 90.43%, test_new 98.99 → 98.33%, hard 91.81 → 90.06%,
-  test_nov4 98.65 → 97.30%). Model deleted 2026-11-05; config + log kept in `training/`.
-- **v4.2** (5 Nov, `training/train_v4_2.py`): the v4 recipe — start from v3, 20 epochs, batch 128,
-  LR 4e-5, new train crops ×3. Best val **96.00% at epoch 10**, ~25 min on the RTX 5080.
-  FP32, training-eval pipeline (`results/2026-11-05_v4.2/eval_v3_v4_v4.2.txt`):
+### Unseen-utility test (5 November)
+TPDDL July 2026 (6,153 crops, never trained on by v3 or v4), production pipeline:
 
-| test set | v3 | v4 | v4.2 |
+| Model | Exact match | Auto-accepted | Precision of auto-accepted reads |
 |---|---|---|---|
-| test_old (1,024, 74% letter serials) | 91.02% | 90.82% | **91.31%** |
-| test_new (1,680) | 93.39% | **98.99%** | 98.81% |
-| test_new_hard (171) | 35.09% | 91.81% | **92.40%** |
-| test_nov4 (74, new 4-Nov crops) | 98.65% | 98.65% | **100.00%** |
+| v3 FP32 | 99.19% | 6,015 | 99.42% |
+| v3 PTQ INT8 (deployed) | 92.52% | 5,680 | 95.69% |
+| v4 FP32 | 97.85% | 6,029 | 98.14% |
+| **v4 PTQ INT8** | **97.82%** | 5,987 | **98.21%** |
 
-- **PTQ** (`quantization/quantize_v4_2_ptq.py`): the v3/v4 recipe added an extra last character on
-  v4.2 (TPDDL July 94.99%, 237 wrong auto-accepts). A recipe search scored 5 variants on the validation
-  split; chosen: CTC head (120 × 18,385) + attention MatMuls kept FP32, percentile 99.999 calibration on
-  1,000 crops (28 MB; same read as FP32 96.2% → 98.2%). onnxruntime 1.23's `CalibMaxIntermediateOutputs`
-  drops data, so calibration runs in chunks of 50 through a patched `collect_data`.
-- **Deploy pipeline, all 8,931 test images** (`results/2026-11-05_v4.2/`):
+The labels were kept only where several models agreed with the bot read, so the set leans towards
+easier crops. FP32 → INT8 agreement on all 8,931 test crops: v3 93.0%, v4 98.8%.
 
-| all 8,931 test images (old + new + 4-Nov + TPDDL July) | v3 INT8 (deployed) | **v4 INT8** | retrained INT8 (v4.2) |
-|---|---|---|---|
-| right | 8,185 | **8,674** | 8,663 |
-| wrong but auto-accepted (≥ 0.95) | 410 | 200 | 179 |
-| sent to review | 674 | **247** | 426 |
-| size / CPU time per crop | 21.4 MB / 28 ms | **21.4 MB / 28 ms** | 28.0 MB / 29 ms |
-
-- **Decision (5 Nov): keep v4, delete v4.2.** Its fewer wrong auto-accepts come from lower confidence
-  only: at equal review workload v4 INT8 is as good or better. Models and checkpoints deleted; the 727
-  reviewed crops stay in `datasets/v4_train` (`nov4_reviewed`) for future training.
+727 reviewed crops from the 4 November capture were added to `datasets/v4_train` afterwards
+(`label_source = nov4_reviewed`) for future training; v4 was not trained on them.
 
 ## 3. Data (summary — full detail in `datasets/README.md`)
 
 | Folder | Images | Role |
 |---|---|---|
 | `datasets/v3_train/` | 6,733 | v3 training data (exact labels + split) |
-| `datasets/v4_train/` | 23,707 | v4 training data (exact labels + split + label source) |
+| `datasets/v4_train/` | 23,707 (+727) | v4 training data (exact labels + split + label source); 727 reviewed 4-Nov crops added later |
 | `datasets/v1_v2_labels/` | labels only | 8,434-row label bank used by v1/v2 |
-| `datasets/test/clean_test_oct27/` | 21,042 | department serial + human review; 16,974 later used to train v4 |
+| `datasets/test/clean_test_oct27/` | 20,970 (21,042 when scored) | department serial + human review; 16,974 later used to train v4 |
 | `datasets/test/final_test/` | 26,787 | labelled test set (3,014 also in v3/v4 training) |
 | `datasets/test/tpddl/` | 3,460 | second utility, never trained on |
 | `datasets/test/tpcodl_human_verified/` | 712 | human-verified TPCODL, never trained on |
@@ -184,7 +159,6 @@ ones because v3 misread them, so `test_old` is the neutral comparison (v4 PTQ +2
 
 ## 7. Open items
 - Decide on deploying v4 PTQ; look first at its 74 confidently-wrong reads on `test_old`.
-- Test v4 on sets it never saw beyond its own test split: `datasets/test/tpddl/`, `tpcodl_human_verified/`,
-  and `datasets/test/tpddl_july_2026/` (6,153, unseen by v3 and v4; easy-biased labels).
-- The training/quantization envs (Paddle 3.3.1 GPU and Paddle 3.0.0) and the PaddleOCR repo live
-  outside this project, in `/home/coral/Desktop/Prince/Prince number detection in meter/` — keep that folder.
+- Score v4 on the remaining independent sets: `datasets/test/tpddl/` (3,460) and `tpcodl_human_verified/` (712).
+- The training and export environments (Paddle 3.3.1 GPU, Paddle 3.0.0) and the PaddleOCR repository
+  live outside this repository.
