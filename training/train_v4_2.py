@@ -27,7 +27,7 @@ What it does (each step is skipped when already done):
   5. eval    v3 vs v4 vs v4.2 per test list -> training/output_v4.2/eval_v3_v4_v4.2.txt
 
 (Try 1 on 2026-11-04 fine-tuned FROM v4 for 8 epochs and came out slightly worse than v4;
-it is kept in models/v4.2_try1/ and training/output_v4.2_try1/.)
+its model was deleted on 2026-11-05; config training/rec_v4.2_try1.yml and log are kept.)
 
 Gentle on the PC (settings below):
   - GPU busy ~90%: training runs 0.9 s, pauses 0.1 s, every second (GPU_SHARE)

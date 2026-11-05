@@ -6,7 +6,7 @@ Meter OCR dashboard — upload one image or a whole folder and see the read of e
     .venv/bin/python dashboard/app.py --host 0.0.0.0  # also reachable from the LAN
     .venv/bin/python dashboard/app.py --port 9000
 
-Models (whichever files exist): v3 FP32, v3 PTQ (deployed), v4 FP32, v4 PTQ, v4.2 FP32, v4.2 PTQ.
+Models (whichever files exist): v3 FP32, v3 PTQ (deployed), v4 FP32, v4 PTQ.
 All run as ONNX on CPU through the deploy code (deploy/ptq_int8/meterocr.py): same preprocessing,
 CTC decode and 0.95 accept gate as production. No extra packages needed beyond the project .venv
 (onnxruntime, opencv, numpy). Images are processed in memory and never written to disk.
@@ -35,9 +35,7 @@ MODELS = [
     ("v3_fp32", "v3 FP32", "models/v3/meterocr_v3_fp32.onnx", ""),
     ("v3_ptq", "v3 PTQ", "models/v3/meterocr_v3_int8_ptq.onnx", "deployed"),
     ("v4_fp32", "v4 FP32", "models/v4/meterocr_v4_fp32.onnx", ""),
-    ("v4_ptq", "v4 PTQ", "models/v4/meterocr_v4_int8_ptq.onnx", ""),
-    ("v4.2_fp32", "v4.2 FP32", "models/v4.2/meterocr_v4.2_fp32.onnx", ""),
-    ("v4.2_ptq", "v4.2 PTQ", "models/v4.2/meterocr_v4.2_int8_ptq.onnx", "candidate"),
+    ("v4_ptq", "v4 PTQ", "models/v4/meterocr_v4_int8_ptq.onnx", "candidate"),
 ]
 MAX_BYTES = 25 * 1024 * 1024  # per image
 

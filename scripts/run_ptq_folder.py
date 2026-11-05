@@ -13,8 +13,7 @@ import numpy as np, cv2, onnxruntime as ort
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODELS = {"v3": os.path.join(ROOT, "models", "v3", "meterocr_v3_int8_ptq.onnx"),   # = deployed model
-          "v4": os.path.join(ROOT, "models", "v4", "meterocr_v4_int8_ptq.onnx"),
-          "v4.2": os.path.join(ROOT, "models", "v4.2", "meterocr_v4.2_int8_ptq.onnx")}
+          "v4": os.path.join(ROOT, "models", "v4", "meterocr_v4_int8_ptq.onnx")}
 MODEL  = MODELS["v3"]                       # replaced from --model in main() before workers start
 DICT   = os.path.join(ROOT, "deploy", "ptq_int8", "model", "ppocrv5_dict.txt")
 IMG_H, IMG_W = 48, 320

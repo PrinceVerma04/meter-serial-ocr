@@ -15,7 +15,7 @@ output: ('<serial number>', 0.98, 'accepted')
 |---|---|
 | **v3** (PTQ INT8) | **In production**: `deploy/ptq_int8/` and the Python 3.8 Flask server package |
 | **v4** (v3 retrained on human-reviewed data) | Candidate, not deployed. Decision pending (see "How to read these numbers") |
-| **v4.2** (v4 recipe + 727 reviewed 4-Nov crops) | FP32 trained (2026-11-05); PTQ INT8 and deploy-pipeline scoring next |
+| v4.2 (v4 recipe + 727 reviewed 4-Nov crops) | Tried 2026-11-05 and dropped: no better than v4 after INT8; models deleted |
 
 ## Confidence gate
 
@@ -40,10 +40,9 @@ For the current models, accept precision on `test_old` is 93.48% (v3 PTQ) and 92
 | v1, v2 | stock | 1,144 / 6,709 labels | — | — | — | replaced |
 | **v3** | stock | 6,733 labels (`datasets/v3_train`) | PTQ 87.21% | PTQ 91.01% | PTQ 11.70% | **deployed** |
 | **v4** | v3 FP32 weights | 23,707 labels (`datasets/v4_train`) | PTQ 90.04% | PTQ 98.81% | PTQ 90.64% | candidate |
-| **v4.2** | v3 FP32 weights | 24,434 labels (v4 + 727 reviewed 4-Nov crops) | FP32 91.31%* | FP32 98.81%* | FP32 92.40%* | FP32 done, PTQ next |
+| v4.2 | v3 FP32 weights | 24,434 labels (v4 + 727 reviewed 4-Nov crops) | PTQ 90.82% | PTQ 98.27% | PTQ 92.40% | tried, dropped |
 
-Exact match, INT8 PTQ, deploy pipeline (`results/2026-11-02_v4/`).
-*v4.2 numbers are FP32 from the training-eval pipeline (fixed 48×320 resize) and are not comparable with the PTQ rows until v4.2 is quantized and scored.
+Exact match, INT8 PTQ, deploy pipeline (`results/2026-11-02_v4/`; v4.2: `results/2026-11-05_v4.2/`).
 
 ### How to read these numbers
 
@@ -53,7 +52,7 @@ Exact match, INT8 PTQ, deploy pipeline (`results/2026-11-02_v4/`).
 
 ### v3 against utility records (large clean test set)
 
-`datasets/test/clean_test_oct27/`: 21,042 sharp crops, all of them misread by the department's old OCR.
+`datasets/test/clean_test_oct27/`: 21,042 sharp crops when scored, all of them misread by the department's old OCR (72 were deleted on 2026-11-05, see `CLEANUP_LOG.md`; 20,970 remain).
 
 | Scoring | v3 FP32 | v3 PTQ (deployed) |
 |---|---|---|
@@ -69,26 +68,18 @@ Every image either model got wrong (4,744) was reviewed by people: 1,771 departm
 - **Start:** v3 FP32 (its inference export was mapped back to training weights; all 458 weights match by layer name).
 - **Recipe** (`training/train_v4.py`): 20 epochs, batch 128, LR 4e-5, RTX 5080, **22 minutes**. Best validation accuracy **96.23% at epoch 16**.
 
-## v4.2: FP32 trained (2026-11-05), PTQ next
+## v4.2: v4 retrained on the 4-Nov clean crops, tried and dropped (2026-11-05)
 
-The v4 recipe on v4's data plus 727 reviewed 4-Nov crops (new train crops repeated ×3). Best validation accuracy 96.00% at epoch 10. FP32, training-eval pipeline (`training/output_v4.2/eval_v3_v4_v4.2.txt`):
+The 2,454 clean crops of the 30k vision-model run were reviewed down to 2,250; 1,523 of them were already in v4's training data and the other **727** were added (`label_source = nov4_reviewed`). v4 was retrained on that (v4 recipe: start from v3, 20 epochs, new crops ×3; `training/train_v4_2.py`) and quantized with a recipe search (`quantization/quantize_v4_2_ptq.py`: CTC head and attention kept FP32, percentile calibration on 1,000 crops, chosen on the validation split). Deploy pipeline (`results/2026-11-05_v4.2/`):
 
-| test set | v3 | v4 | v4.2 |
+| All 8,931 test images (old + new + 4-Nov + TPDDL July) | v3 INT8 (deployed) | **v4 INT8** | v4.2 INT8 |
 |---|---|---|---|
-| test_old (1,024, 74% letter serials) | 91.02% | 90.82% | **91.31%** |
-| test_new (1,680) | 93.39% | **98.99%** | 98.81% |
-| test_new_hard (171) | 35.09% | 91.81% | **92.40%** |
-| test_nov4 (74, new 4-Nov crops) | 98.65% | 98.65% | **100.00%** |
+| Right | 8,185 | **8,674** | 8,663 |
+| Wrong but auto-accepted (≥ 0.95) | 410 | 200 | 179 |
+| Sent to review | 674 | **247** | 426 |
+| Size / CPU time per crop | 21.4 MB / 28 ms | **21.4 MB / 28 ms** | 28.0 MB / 29 ms |
 
-An earlier attempt (fine-tuning from v4 for 8 epochs) was slightly worse than v4 on every set and is kept locally as `models/v4.2_try1/`.
-
-Steps, one command each (1–4 done):
-1. `.venv/bin/python scripts/review_round3_server.py` — decide the doubtful labels (port 8097)
-2. `.venv/bin/python scripts/build_v4_retrain_data.py` — apply all review rounds
-3. `.venv/bin/python datasets/merge_into_v4_train.py` — merge into `datasets/v4_train`
-4. `python3 training/train_v4_2.py` — v4.2 FP32 → `models/v4.2/`
-5. `python3 quantization/quantize_v4_2_ptq.py` — v4.2 PTQ INT8 + scores v3 / v4 / v4.2
-6. `python3 quantization/quantize_v4_2_ptq.py --remove-old-v4` — after reading the scores
+v4.2's 21 fewer wrong auto-accepts come only from lower confidence: at the same review workload v4 INT8 lets through as few or fewer wrong reads (200 vs 204; 169 vs 179). FP32 against FP32 the gain is 11 images (8,698 vs 8,687). **Decision: keep v4, delete v4.2** (models and checkpoints removed; scripts, configs, logs and results kept as the record). An earlier fine-tune *from* v4 (4 Nov) was worse than v4 on every set.
 
 Training uses ~14.4 of the RTX 5080's 16 GB; if the monitor is plugged into that card the desktop lags until training ends, so use the motherboard port.
 
@@ -117,13 +108,13 @@ This repository covers **recognition only**: the input is already a crop of the 
 .
 ├── README.md · PROJECT_SUMMARY.md · CLEANUP_LOG.md
 ├── datasets/        training data per version + test sets, each images/ + labels.csv  (README inside)
-├── models/          base/ · v3/ · v4/ · v4.2/  — FP32 Paddle, FP32 ONNX, INT8 PTQ ONNX, training weights (README inside)
+├── models/          base/ · v3/ · v4/  — FP32 Paddle, FP32 ONNX, INT8 PTQ ONNX, training weights (README inside)
 ├── deploy/          ptq_int8/ (v3 in production) · meterocr_ptq_py38_v3.zip (Python 3.8 server)
-├── training/        train_v4.py · train_v4_2.py (auto-resuming) · rec_v3/v4/v4.2.yml · logs/
-├── quantization/    quantize_v4_ptq.py · quantize_v4_2_ptq.py (export → ONNX → INT8 → scoring) · compat_env/
-├── results/         2026-10-27_v3_clean_test/ · 2026-11-02_v4/ · 2026-11-04_all_models_test/
+├── training/        train_v4.py · train_v4_2.py (v4.2 record) · rec_v3/v4/v4.2.yml · logs/
+├── quantization/    quantize_v4_ptq.py · quantize_v4_2_ptq.py (INT8 recipe search) · compat_env/
+├── results/         2026-10-27_v3_clean_test/ · 2026-11-02_v4/ · 2026-11-04_all_models_test/ · 2026-11-05_v4.2/ · 2026-11-05_review_21425/
 ├── dashboard/       app.py + index.html — local web page: image/folder in, every model's read out
-├── scripts/         infer · run_ptq_folder · step1–3 (all-model test) · review_round2/3 servers · build_v4_retrain_data
+├── scripts/         infer · run_ptq_folder · step1–3 (all-model test) · review_round2/3 servers · build_v4_retrain_data · accepted_summary · build_review_dashboard · export_all_same
 ├── docs/            internal notes and report zips (local only)
 └── assets/          README images
 ```
@@ -154,6 +145,6 @@ python3 quantization/quantize_v4_ptq.py  # how v4 was quantized + scored (re-pri
 Both switch to the right Python environment by themselves. The GPU training environment (Paddle 3.3.1, CUDA 13), the Paddle 3.0.0 export environment and the PaddleOCR repository live outside this repository (see `PROJECT_SUMMARY.md`).
 
 ## Open items
-- Run `quantization/quantize_v4_2_ptq.py`, then decide between v4 and v4.2.
+- Finish cleaning the 5-Nov review set with `scripts/build_review_dashboard.py` (filter by acceptance, model agreement and correct serial; confirmed crops go to `all_models_same/`).
 - Decide on deploying v4 PTQ; inspect its 74 confidently wrong reads on `test_old` first.
 - Test v4 on sets it never saw beyond its own test split: `datasets/test/tpddl/`, `datasets/test/tpcodl_human_verified/` and `datasets/test/tpddl_july_2026/` (6,153 images, unseen by v3 and v4; labels are easy-biased).

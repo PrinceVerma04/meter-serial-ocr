@@ -3,7 +3,7 @@
 STEP 1 of 2 - run every model on the test images and save what each one reads.
 This step never opens the ground truth file; it only reads the images.
 
-Models (all ONNX, CPU): v3 FP32, v3 PTQ (deployed), v4 FP32, v4 PTQ, v4.2 FP32, v4.2 PTQ (whichever exist).
+Models (all ONNX, CPU): v3 FP32, v3 PTQ (deployed), v4 FP32, v4 PTQ (whichever exist).
 All go through the deploy code (deploy/ptq_int8/meterocr.py): same preprocessing, greedy CTC
 decode and confidence as production (and as the dashboard).
 
@@ -41,8 +41,6 @@ MODELS = [
     ("v3_ptq", "models/v3/meterocr_v3_int8_ptq.onnx"),
     ("v4_fp32", "models/v4/meterocr_v4_fp32.onnx"),
     ("v4_ptq", "models/v4/meterocr_v4_int8_ptq.onnx"),
-    ("v4.2_fp32", "models/v4.2/meterocr_v4.2_fp32.onnx"),
-    ("v4.2_ptq", "models/v4.2/meterocr_v4.2_int8_ptq.onnx"),
 ]
 IMG_EXT = (".jpg", ".jpeg", ".png", ".bmp", ".webp")
 

@@ -23,6 +23,7 @@ quantization/compat_env/inference_*/
 # --- raw test-image folders and pages that embed images (repo is public) ---
 new testing data 4 nov/
 results/2026-11-04_all_models_test/test_dashboard.html
+results/2026-11-05_review_21425/review_dashboard.html
 docs/resume_explained/
 
 # --- training work dirs (checkpoints, generated lists) ---
