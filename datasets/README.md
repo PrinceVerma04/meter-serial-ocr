@@ -17,12 +17,12 @@ cropped meter serial (recognition only, no detector).
 `image_name, serial, split` — 6,733 rows. Characters 0–9 and A–X; 959 labels contain a space.
 
 ### `v4_train/labels.csv`
-`image_name, serial, split, label_source` — 23,707 rows. `split` is the exact split v4 used.
+`image_name, serial, split, label_source` — 23,707 rows used by v4 (plus the 727 `nov4_reviewed` rows below). `split` is the exact split v4 used.
 
 | label_source | Images | Where the serial comes from | train / val / test |
 |---|---|---|---|
 | `v3_data` | 6,733 | the v3 training labels (same images as `v3_train/`) | 4,793 / 916 / 1,024 |
-| `new_human_reviewed` | 1,807 | typed/confirmed by Prince Verma, Sathwik, Srinath Battu on the review dashboard (1,771 department serial confirmed, 36 corrected); images v3 FP32 or PTQ read wrong | 1,468 / 168 / 171 |
+| `new_human_reviewed` | 1,807 | typed/confirmed by three reviewers (Prince Verma, Sathwik, Srinath Battu) (1,771 department serial confirmed, 36 corrected); images v3 FP32 or PTQ read wrong | 1,468 / 168 / 171 |
 | `new_auto_4_way_agreement` | 15,167 | department serial, used only where EasyOCR, v3 FP32 and v3 PTQ all read exactly it with confidence ≥ 0.95; **not checked by a person per image** | 12,141 / 1,517 / 1,509 |
 | **total** | **23,707** | | **18,402 / 2,601 / 2,704** |
 
@@ -34,17 +34,15 @@ The v4 test split is reported as three sets (`results/2026-11-02_v4/`):
 `test_old` = 1,024 `v3_data` test images · `test_new` = 1,680 new test images ·
 `test_new_hard` = the 171 human-reviewed ones inside `test_new`.
 
-### Adding reviewed crops for v4.2 (`merge_into_v4_train.py`)
-The 4-Nov clean crops (`new testing data 4 nov/`) are reviewed in three rounds
-(`scripts/apply_review_2026_11_04.py`, `scripts/review_round2_server.py`, `scripts/review_round3_server.py`),
-built into `datasets/v4_retrain_nov4/` by `scripts/build_v4_retrain_data.py`, and then merged here by
-`datasets/merge_into_v4_train.py`:
-- new rows get `label_source = nov4_reviewed`; each crop takes its meter's existing split, crops of new
+### Reviewed 4-Nov crops (`nov4_reviewed`)
+727 crops from the 4 November capture, checked by people in three review rounds, were added to
+`labels.csv` after v4 was trained (24,434 rows in total):
+- they have `label_source = nov4_reviewed`; each crop takes its meter's existing split, crops of new
   meters are split 80/10/10 by meter (seed 0);
-- rows already here whose reviewed serial differs get the reviewed serial, the old one stays in `v4_serial`;
-- `labels_v4.csv` = this file exactly as v4 was trained on it (kept once, before the merge).
-v4.2 (`training/train_v4_2.py`, dropped 2026-11-05) trained on every row; v4 used every row except `nov4_reviewed`
-(with the `v4_serial` values).
+- rows whose reviewed serial differs from the v4 label get the reviewed serial, and the old one is kept in `v4_serial`;
+- `labels_v4.csv` (local) is the file exactly as v4 was trained on it.
+
+v4 used every row except `nov4_reviewed`, with the `v4_serial` values.
 
 ### `v1_v2_labels/ground_truth.csv`
 The original label bank: `image, true_label, verdict, tier` — 8,434 rows

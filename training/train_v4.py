@@ -401,7 +401,7 @@ def step_eval():
         print(lines[-1], flush=True)
     lines += ["", "test_old      = old v3 test split (74% serials with letters)",
               "test_new      = new correct images held out (never trained on)",
-              "test_new_hard = part of test_new labelled on the review dashboard (v3 FP32 or PTQ read them wrong)",
+              "test_new_hard = part of test_new re-labelled by human review (v3 FP32 or PTQ read them wrong)",
               "acc = exact match, fixed 48x320 resize (training-eval pipeline, not the deploy pipeline)"]
     atomic_write(res, "\n".join(lines) + "\n")
     print("\n".join([lines[0]] + lines[1:4]))

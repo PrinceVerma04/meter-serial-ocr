@@ -29,7 +29,7 @@ TRUTH = os.path.join(ROOT, "new testing data 4 nov", "clean_extracted_serials.xl
 ACCEPT = 0.95   # same auto-accept threshold as deploy/ptq_int8/meterocr.py
 
 TITLES = {"v3_fp32": "v3 FP32", "v3_ptq": "v3 PTQ (deployed)", "v4_fp32": "v4 FP32",
-          "v4_ptq": "v4 PTQ", "v4.2_fp32": "v4.2 FP32", "v4.2_ptq": "v4.2 PTQ (candidate)"}
+          "v4_ptq": "v4 PTQ (candidate)"}
 
 
 def norm(s):
@@ -109,13 +109,13 @@ def main():
         L.append("  " + "".join(f"{str(v):<{w[0]}}" if i == 0 else f"{str(v):>{w[i]}}" for i, v in enumerate(row)))
     L.append("")
 
-    for a_, b_ in (("v3_fp32", "v3_ptq"), ("v4_fp32", "v4_ptq"), ("v4.2_fp32", "v4.2_ptq")):
+    for a_, b_ in (("v3_fp32", "v3_ptq"), ("v4_fp32", "v4_ptq")):
         if a_ in keys and b_ in keys:
             ia, ib = keys.index(a_), keys.index(b_)
             same = sum(norm(reads[x][ia]) == norm(reads[x][ib]) for x in names)
             L.append(f"  FP32 vs PTQ same read, {TITLES[a_].split()[0]:<7}{same:>6} of {n}  ({100 * same / max(n, 1):.1f}%)")
     L.append("")
-    cand = "v4.2_ptq" if "v4.2_ptq" in keys else "v4_ptq"
+    cand = "v4_ptq"
     if "v3_ptq" in keys and cand in keys:
         i3, i4 = keys.index("v3_ptq"), keys.index(cand)
         cname = TITLES[cand].replace(" (candidate)", "")

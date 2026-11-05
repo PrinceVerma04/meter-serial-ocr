@@ -26,7 +26,6 @@ models/
 | v2 | Jul 2026 | stock | 6,709 | deleted | deleted (QAT too) | replaced |
 | **v3** | 2026-07-24 / PTQ 07-25 | stock | 6,733 `datasets/v3_train` | 81 MB | 21 MB | **deployed** |
 | **v4** | 2026-11-02 | v3 | 23,707 `datasets/v4_train` | 81 MB | 21 MB | candidate |
-| v4.2 | 2026-11-05 | v3 | 24,434 `datasets/v4_train` (+ `nov4_reviewed`) | deleted | deleted | dropped: INT8 ≈ v4 INT8 (`results/2026-11-05_v4.2/`) |
 
 ## Accuracy (exact match, deploy pipeline, 0.95 gate) — `results/2026-11-02_v4/`
 | Test set | v3 FP32 | v3 PTQ (deployed) | v4 FP32 | v4 PTQ |

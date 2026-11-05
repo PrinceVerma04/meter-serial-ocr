@@ -57,7 +57,7 @@ MODEL_KEYS = [("v3_fp32", "v3 FP32"), ("v3_ptq", "v3 PTQ INT8 (deployed)"),
               ("v4_fp32", "v4 FP32"), ("v4_ptq", "v4 PTQ INT8 (new)")]
 SETS = [("test_old", "old v3 test split (74% serials with letters)"),
         ("test_new", "new correct images held out (never trained on)"),
-        ("test_new_hard", "part of test_new labelled on the review dashboard")]
+        ("test_new_hard", "part of test_new re-labelled by human review")]
 
 
 def say(msg):
@@ -207,7 +207,7 @@ def _norm(s):
 def _score_one(item):
     import cv2
     name, path, tset, hard, label = item
-    row = {"image_name": name, "test_set": tset, "dashboard_label": hard, "label": label}
+    row = {"image_name": name, "test_set": tset, "human_reviewed": hard, "label": label}
     bgr = cv2.imread(path)
     pre = _m["v3_ptq"]
     for key, _ in MODEL_KEYS:
@@ -232,7 +232,7 @@ def _score_one(item):
 
 def _score():
     from multiprocessing import Pool
-    fields = ["image_name", "test_set", "dashboard_label", "label"]
+    fields = ["image_name", "test_set", "human_reviewed", "label"]
     for k, _ in MODEL_KEYS:
         fields += [f"{k}_result", f"{k}_confidence", f"{k}_status", f"{k}_correct", f"{k}_ms"]
 
@@ -278,7 +278,7 @@ def _summary():
     rows = list(csv.DictReader(open(OUT_CSV, encoding="utf-8")))
     groups = {"test_old": [r for r in rows if r["test_set"] == "test_old"],
               "test_new": [r for r in rows if r["test_set"] == "test_new"],
-              "test_new_hard": [r for r in rows if r["dashboard_label"] == "yes"]}
+              "test_new_hard": [r for r in rows if r["human_reviewed"] == "yes"]}
     L = ["v3 vs v4 - deploy pipeline (deploy/ptq_int8/meterocr.py preprocessing, greedy CTC, 0.95 gate, CPU)",
          f"model sizes: v3 PTQ {mb(V3_PTQ):.1f} MB, v4 PTQ {mb(V4_INT8):.1f} MB, v4 FP32 ONNX {mb(V4_FP32_ONNX):.1f} MB", ""]
     for g, desc in SETS:
