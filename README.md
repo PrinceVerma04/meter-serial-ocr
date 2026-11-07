@@ -116,7 +116,7 @@ Source: `results/2026-11-07_confirmed_8155/` (`model_reads.xlsx`, `accuracy_repo
 The same 8,155 confirmed crops were also read by 28 public OCR, scene-text and vision-language models, used as released with no fine-tuning. Every read, including those of our four models, was scored against the same labels after upper-casing and keeping only A–Z and 0–9, because the off-the-shelf models often add punctuation or spaces.
 
 ```mermaid
-xychart-beta
+xychart-beta horizontal
     title "Exact match on 8,155 confirmed crops"
     x-axis ["v4 FP32", "v4 INT8", "v3 FP32", "v3 INT8", "PP-OCRv5", "PP-OCRv6", "PARSeq", "docTR PARSeq", "GLM-OCR", "HunyuanOCR", "PaddleOCR-VL", "MiniCPM-V", "DeepSeek v1", "DeepSeek-2"]
     y-axis "Exact match (%)" 0 --> 100
