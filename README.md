@@ -82,6 +82,23 @@ People reviewed all 4,744 reads that either model got wrong:
 
 Most of the remaining errors are therefore photos that cannot be read, not model mistakes.
 
+### Check on 8,155 confirmed crops (7 Nov 2026)
+
+All four models read 8,155 crops from the 5 Nov 2026 capture without seeing any label (`scripts/step1_run_all_models.py`); the reads were then scored against the serials confirmed during review (`scripts/step2_check_accuracy.py`). None of these crops are in v4's training data.
+
+| Model | Right | Exact match | Auto-accepted (≥ 0.95) but wrong |
+|---|---|---|---|
+| v3 FP32 | 8,033 | 98.50% | 96 |
+| **v3 INT8** (production) | 7,322 | 89.79% | 424 |
+| v4 FP32 | 8,127 | **99.66%** | **18** |
+| **v4 INT8** (candidate) | 8,046 | 98.66% | 77 |
+
+- Per crop, v4 INT8 reads 796 crops right that v3 INT8 gets wrong; the reverse happens on 72.
+- The INT8 model gives the same read as its FP32 model on 98.8% of crops for v4, against 90.0% for v3.
+- **Not an unbiased accuracy figure.** For 7,207 of the 8,155 crops the label is the serial all four models read alike, so every model scores 100% on them. All differences come from the other 948 crops (v3 FP32 87.13%, v3 INT8 12.13%, v4 FP32 97.05%, v4 INT8 88.50%), and most of their labels were also set where the FP32 or v4 models agreed. Use this check to compare the models; the held-out sets above give the fair accuracy.
+
+Source: `results/2026-11-07_confirmed_8155/` (`model_reads.xlsx`, `accuracy_report.xlsx`).
+
 ## Model versions
 
 | Version | Started from | Training data | Status |
@@ -156,7 +173,7 @@ Both scripts switch to the right Python environment themselves. The GPU training
 ├── deploy/         ptq_int8/: production model, dictionary and inference code
 ├── training/       train_v4.py · rec_v3.yml · rec_v4.yml · logs/
 ├── quantization/   quantize_v3_ptq.py · quantize_v4_ptq.py (export → ONNX → INT8 → scoring)
-├── results/        2026-10-27_v3_clean_test/ · 2026-11-02_v4/ · 2026-11-04_all_models_test/ · 2026-11-05_review_21425/
+├── results/        2026-10-27_v3_clean_test/ · 2026-11-02_v4/ · 2026-11-04_all_models_test/ · 2026-11-05_review_21425/ · 2026-11-07_confirmed_8155/
 ├── scripts/        inference, batch scoring and data-preparation scripts
 └── assets/         README images
 ```
