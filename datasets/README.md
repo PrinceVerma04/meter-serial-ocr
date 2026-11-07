@@ -84,6 +84,13 @@ were used only by an August experiment that has since been removed; v3 and v4 ne
 Not included in August: 655 TPDDL images never finished review, and 728 TPCODL Aug labels that were
 deleted before merging (both lost).
 
+## Test data kept outside `datasets/`
+8,155 crops from the 5 November 2026 capture whose serials were confirmed during review (image_name +
+serial). They are kept locally, not in this folder or the repository, and were used **for testing only**:
+on 2026-11-07 all four models (v3 FP32, v3 INT8, v4 FP32, v4 INT8) were scored on them
+(`results/2026-11-07_confirmed_8155/`, summary in the main README). No model was trained on them, and
+none are in `v3_train` or `v4_train`.
+
 ## Other
 `other/tpcodl_1aug_4aug_2026_s3_manifest.csv` — S3 URL + bot serial for 11,423 TPCODL crops
 (images not stored here; links were live on 2026-10-27).

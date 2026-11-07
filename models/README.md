@@ -40,6 +40,11 @@ Read with care: the 1,509 easy `test_new` images were chosen because v3 read the
 (v3 1,509/1,509, v4 PTQ 1,505) and the 171 hard ones because v3 got them wrong; `test_old`
 is the neutral comparison (+29 right for v4 PTQ, but 74 vs 58 confidently-wrong reads).
 
+Later tests (no retraining, testing only): TPDDL July 2026, 6,153 unseen crops (5 Nov) — v4 PTQ 97.82%
+vs v3 PTQ 92.52%; 8,155 confirmed crops from the 5 Nov capture (7 Nov) — exact match / character error
+v3 FP32 98.50% / 0.20%, v3 PTQ 89.79% / 1.44%, v4 FP32 99.66% / 0.05%, v4 PTQ 98.66% / 0.17%
+(labels partly from model agreement, see the main README). Results: `results/2026-11-07_confirmed_8155/`.
+
 ## Which file to use
 - **Production / CPU / no Paddle:** `vX/meterocr_vX_int8_ptq.onnx` with `deploy/ptq_int8/meterocr.py`
   (`MeterOCR(model_path=...)`); `scripts/run_ptq_folder.py --model v3|v4` for a folder.

@@ -1,0 +1,33 @@
+key,name,family,model_id,right,exact_all,exact_agreed_7207,exact_other_948,char_error,seconds_per_crop_gpu
+v4_fp32,v4 FP32 (this project),fine-tuned PP-OCRv5 server (this project),,8127,99.66,100.0,97.05,0.05,
+v4_int8,"v4 INT8 (this project, candidate)",fine-tuned PP-OCRv5 server (this project),,8046,98.66,100.0,88.5,0.17,
+v3_fp32,v3 FP32 (this project),fine-tuned PP-OCRv5 server (this project),,8033,98.5,100.0,87.13,0.2,
+v3_int8,"v3 INT8 (this project, production)",fine-tuned PP-OCRv5 server (this project),,7330,89.88,100.0,12.97,1.42,
+ppocrv5_server_masked,"PP-OCRv5 server rec, charset-masked CTC",PP-OCR CTC recognizer,PaddlePaddle/PP-OCRv5_server_rec_safetensors,6788,83.24,83.28,82.91,2.32,0.0007351072961373389
+ppocrv5_server,PP-OCRv5 server rec (HF transformers),PP-OCR CTC recognizer,PaddlePaddle/PP-OCRv5_server_rec_safetensors,6783,83.18,83.22,82.81,2.33,0.0008437155119558555
+rapidocr_ppocrv5_server_cpu,RapidOCR PP-OCRv5 server rec (onnxruntime CPU),PP-OCR CTC recognizer,rapidocr 3.10 ch_PP-OCRv5_rec_server.onnx,6773,83.05,83.06,83.02,2.34,0.02997937461679951
+ppocrv6_medium_masked,"PP-OCRv6 medium rec, charset-masked CTC",PP-OCR CTC recognizer,PaddlePaddle/PP-OCRv6_medium_rec_safetensors,6694,82.08,81.78,84.39,2.43,0.0009496259963212752
+ppocrv6_medium,PP-OCRv6 medium rec (HF transformers),PP-OCR CTC recognizer,PaddlePaddle/PP-OCRv6_medium_rec_safetensors,6671,81.8,81.49,84.18,2.47,0.001042354383813612
+parseq,PARSeq base (baudm torch.hub),Scene-text recognizer,baudm/parseq torch.hub 'parseq' pretrained (parseq-bb5792a6.pt),6317,77.46,76.79,82.59,3.21,0.0006234212139791538
+doctr_parseq,docTR PARSeq,Scene-text recognizer (docTR),python-doctr 1.1 parseq (parseq-56125471.pt),5743,70.42,70.75,67.93,4.81,0.0007245370938074799
+glm_ocr,GLM-OCR 0.9B,OCR VLM,"ollama glm-ocr:latest (digest 89d735dd9c07, F16, 891M LLM + 434M CLIP projector; zai-org/GLM-OCR)",5710,70.02,69.9,70.89,4.63,0.04611829552421827
+doctr_crnn_vgg16_bn,docTR CRNN VGG16-BN,Scene-text recognizer (docTR),python-doctr 1.1 crnn_vgg16_bn (crnn_vgg16_bn-0417f351.pt),5628,69.01,69.74,63.5,4.75,0.0004159043531575722
+doctr_vitstr_small,docTR ViTSTR-small,Scene-text recognizer (docTR),"python-doctr 1.1 vitstr_small (vitstr_small-fcd12655.pt, downloaded)",5426,66.54,67.12,62.13,5.97,0.0005724095646842428
+doctr_vitstr_base,docTR ViTSTR-base,Scene-text recognizer (docTR),python-doctr 1.1 vitstr_base (vitstr_base-50b21df2.pt),5308,65.09,65.34,63.19,6.59,0.001316480686695278
+mgp_str_base,MGP-STR base,Scene-text recognizer,alibaba-damo/mgp-str-base,5072,62.19,61.11,70.46,6.9,0.005987112201103618
+trocr_base_printed,TrOCR base printed,Scene-text recognizer,microsoft/trocr-base-printed,5062,62.07,63.04,54.75,6.76,0.01266187614960147
+hunyuan_ocr,Tencent HunyuanOCR-1.5 (1B),OCR VLM,tencent/HunyuanOCR@47644ecc4fc854efa4f505155158831f36773ee4 (root = v1.5 checkpoint; v1.0 under subfolder not used),5047,61.89,62.62,56.33,7.14,0.05240161863887186
+doctr_crnn_mobilenet_v3_large,docTR CRNN MobileNetV3-large,Scene-text recognizer (docTR),python-doctr 1.1 crnn_mobilenet_v3_large (crnn_mobilenet_v3_large_pt-f5259ec2.pt),4974,60.99,62.15,52.22,7.17,0.0003310239117106069
+paddleocr_vl_1_6,PaddleOCR-VL-1.6 (0.9B),OCR VLM,PaddlePaddle/PaddleOCR-VL-1.6 @ 132c45f52c0a26ed5a6b2f6bd8e3985794cc27dd,4841,59.36,60.18,53.16,7.9,0.01706792152053955
+paddleocr_vl_1_5,PaddleOCR-VL-1.5 (0.9B),OCR VLM,PaddlePaddle/PaddleOCR-VL-1.5 @ 1e5216083435c7851caad5d691ef55aab81b5949,4837,59.31,59.96,54.43,8.07,0.01590778663396689
+doctr_viptr_tiny,docTR VIPTR-tiny,Scene-text recognizer (docTR),"python-doctr 1.1 viptr_tiny (viptr_tiny-1cb2515e.pt, downloaded from doctr-static v0.11.0)",4833,59.26,60.51,49.79,6.92,0.0004778295524218271
+doctr_master,docTR MASTER,Scene-text recognizer (docTR),python-doctr 1.1 master (master-fde31e4a.pt),4827,59.19,59.91,53.69,9.08,0.001570263641937462
+doctr_crnn_mobilenet_v3_small,docTR CRNN MobileNetV3-small,Scene-text recognizer (docTR),python-doctr 1.1 crnn_mobilenet_v3_small (crnn_mobilenet_v3_small_pt-3b919a02.pt),4493,55.1,56.1,47.47,8.8,0.000323629675045984
+doctr_sar_resnet31,docTR SAR ResNet31,Scene-text recognizer (docTR),python-doctr 1.1 sar_resnet31 (sar_resnet31-9a1deedf.pt),2635,32.31,32.84,28.27,27.16,0.001127676272225629
+minicpm_v_8b,"minicpm-v:8b (Ollama)",VLM,ollama minicpm-v:8b (digest c92bfad01205),2477,30.37,31.46,22.15,22.24,0.3508751686082158
+deepseek_ocr_v1,"DeepSeek-OCR v1 (3B, Oct 2025) via Ollama",DeepSeek OCR (VLM),"ollama deepseek-ocr:3b (architecture deepseekocr, 3.3B, F16; Ollama 0.33.3)",1330,16.31,16.94,11.5,84.35,0.522841532801962
+qwen3_vl_2b,"qwen3-vl:2b (Ollama)",VLM,ollama qwen3-vl:2b (digest 0635d9d857d4),1269,15.56,15.85,13.4,47.16,0.8835559779276518
+qwen2_5vl_3b,"qwen2.5vl:3b (Ollama)",VLM,ollama qwen2.5vl:3b (digest fb90415cde1e),1234,15.13,15.48,12.45,48.78,1.106940895156346
+qwen2_5vl_7b,"qwen2.5vl:7b (Ollama)",VLM,ollama qwen2.5vl:7b (digest 5ced39dfa4ba),1186,14.54,14.87,12.03,54.72,1.417961496014715
+easyocr,EasyOCR english_g2 (recognizer only),Scene-text recognizer,easyocr 1.7.2 english_g2.pth,1109,13.6,14.01,10.44,36.71,0.003760539546290619
+deepseek_ocr2,DeepSeek-OCR-2 (native transformers),DeepSeek OCR (VLM),deepseek-community/DeepSeek-OCR-2 (snapshot 838dc37567aa97106fcd590e2be6a8f279881813),1006,12.34,12.81,8.76,108.24,0.108346572654813

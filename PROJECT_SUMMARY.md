@@ -1,7 +1,7 @@
 # Meter Serial-Number OCR — Project Summary
 
 **Project:** Serial Meter Detection (Coral Innovation, IT and Development) · **Owner:** Prince Verma
-**Last updated:** 2026-11-02
+**Last updated:** 2026-11-07
 
 **Goal:** read the serial number printed on an electricity-meter nameplate from an
 already-cropped photo of the serial area.
@@ -110,6 +110,27 @@ easier crops. FP32 → INT8 agreement on all 8,931 test crops: v3 93.0%, v4 98.8
 727 reviewed crops from the 4 November capture were added to `datasets/v4_train` afterwards
 (`label_source = nov4_reviewed`) for future training; v4 was not trained on them.
 
+### Confirmed-crop test (7 November) — testing only, no training
+All four models read 8,155 crops from the 5 November capture (serials confirmed during review;
+kept locally, not in the repository) without seeing the labels, then were scored against them.
+No model was trained on these crops and none are in v3's or v4's training data.
+Results: `results/2026-11-07_confirmed_8155/`.
+
+| Model | Exact match | Auto-accepted but wrong | Word error | Character error |
+|---|---|---|---|---|
+| v3 FP32 | 98.50% (8,033) | 96 | 1.50% | 0.20% |
+| v3 PTQ INT8 (deployed) | 89.79% (7,322) | 424 | 10.21% | 1.44% |
+| v4 FP32 | **99.66%** (8,127) | **18** | **0.34%** | **0.05%** |
+| **v4 PTQ INT8** | 98.66% (8,046) | 77 | 1.34% | 0.17% |
+
+- Per crop, v4 PTQ is right on 796 crops v3 PTQ gets wrong, the reverse on 72. INT8 keeps the FP32
+  read on 98.8% of crops for v4 and 90.0% for v3; v3 PTQ adds 182 extra characters, v4 PTQ 6.
+- Almost every error is one character (v4 PTQ: 107 of 109 wrong serials).
+- **Biased upwards:** 7,207 labels are the serial all four models read alike (100% for every model by
+  construction). On the other 948 crops: exact match 87.13% / 12.13% / 97.05% / 88.50%, character error
+  1.69% / 12.25% / 0.39% / 1.45% (v3 FP32 / v3 PTQ / v4 FP32 / v4 PTQ). Use it to compare models, not
+  as a headline accuracy.
+
 ## 3. Data (summary — full detail in `datasets/README.md`)
 
 | Folder | Images | Role |
@@ -117,11 +138,12 @@ easier crops. FP32 → INT8 agreement on all 8,931 test crops: v3 93.0%, v4 98.8
 | `datasets/v3_train/` | 6,733 | v3 training data (exact labels + split) |
 | `datasets/v4_train/` | 23,707 (+727) | v4 training data (exact labels + split + label source); 727 reviewed 4-Nov crops added later |
 | `datasets/v1_v2_labels/` | labels only | 8,434-row label bank used by v1/v2 |
-| `datasets/test/clean_test_oct27/` | 20,970 (21,042 when scored) | department serial + human review; 16,974 later used to train v4 |
+| `datasets/test/clean_test_oct27/` | 20,894 (21,042 when scored) | department serial + human review; 16,974 later used to train v4 |
 | `datasets/test/final_test/` | 26,787 | labelled test set (3,014 also in v3/v4 training) |
 | `datasets/test/tpddl/` | 3,460 | second utility, never trained on |
 | `datasets/test/tpcodl_human_verified/` | 712 | human-verified TPCODL, never trained on |
 | `datasets/test/tpddl_july_2026/` | 6,153 | hand-reviewed TPDDL July crops, never trained on by v3/v4 |
+| 5 Nov capture, confirmed crops (local only) | 8,155 | test only (7 Nov all-model test); never trained on |
 
 ---
 
